@@ -1,2 +1,2 @@
 # Primo
-Software for retail pharmacies
+Software for retail pharmacies developed by Garosha Solutions
