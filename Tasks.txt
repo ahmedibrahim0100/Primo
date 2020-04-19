@@ -1,0 +1,3 @@
+
+Deployment phase:
+1- Comment assembly line in SwaggerConfig.cs because there would be no need for Swagger UI & for security. (Tim Corey, video 4)
