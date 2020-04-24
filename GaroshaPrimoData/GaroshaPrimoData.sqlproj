@@ -66,4 +66,21 @@
   <ItemGroup>
     <None Include="PublishLocations\GaroshaPrimoData.publish.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\User.sql" />
+    <Build Include="dbo\Tables\UserPhone.sql" />
+    <Build Include="dbo\Tables\UserAddress.sql" />
+    <Build Include="dbo\Tables\Countries.sql" />
+    <Build Include="dbo\Tables\Cities.sql" />
+    <Build Include="dbo\Tables\SellingTransactionsMaster.sql" />
+    <Build Include="dbo\Tables\Customers.sql" />
+    <Build Include="dbo\Tables\SellingTransactionsItems.sql" />
+    <Build Include="dbo\Tables\ItemsMaster.sql" />
+    <Build Include="dbo\Tables\ProducerCompanies.sql" />
+    <Build Include="dbo\Tables\ItemsCodes.sql" />
+    <Build Include="dbo\Tables\ItemsQuantitiesExpiryDates.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="GaroshaPrimoData.refactorlog" />
+  </ItemGroup>
 </Project>

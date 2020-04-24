@@ -1,0 +1,193 @@
+*******************************************
+User Tables
+*******************************************
+(Done)
+*** User (Done)
+1- Id - nvarchar(128) - (We should get it from EntityFramework database for users)
+2- Name - nvarchar(200)
+3- Email - nvarchar(256)
+4- HourRate - decimal(18,3)
+5- CreatedDate - datetime2(7) - default: getdate()
+6- Status (Active or Not)
+
+(Done)
+*** UserPhone (To allow multiple recordings for each user) (Done)
+1- UserId - FK to User table
+2- PhoneNumber - nvarchar(30)
+
+(Done)
+*** UserAddress (To allow multiple recordings for each user) 
+1- UserId - FK to User table
+2- Address - nvarchar(300)
+3- CityId - int - FK
+4- CountryId - int - FK
+
+*** UserHours
+
+--------------------------------------------------------------------------------------------------------
+*********************************************
+Countries & Cities Tables
+*********************************************
+(Done)
+*** Countries
+1- CountryId int
+2- CountryName nvarchar(60)
+
+(Done)
+*** Cities
+1- CityId int
+2- CityName nvarchar(60)
+3- CountryId int FK
+
+--------------------------------------------------------------------------------------------------------
+*********************************************
+Selling Transactions Tables
+*********************************************
+(Done)
+*** SellingTransactionsMaster
+1- TransactionId - int - primary key
+2- TransactionType - nvarchar(50) - Delivery | Contract | On Site
+3- TransactionTiming - datetime2(7) - default: getdate()
+4- Subtotal - money
+5- Taxes - money
+6- Total - money
+7- CasherId - nvarchar(128) - FK
+8- CustomerId - FK
+9- NumberOfItems - int
+10- NumberOfPieces - decimal(18,3)
+
+(Done)
+*** SellingTransactionsItems
+1- Id int PK
+2- SellingTransactionId - int - FK
+3- ItemId - int - FK
+4- ItemExpiryDate - date
+5- SellingTransactionItemQuantity - decimal(18,3) - default:1
+6- ItemSellingPrice - money
+7- ItemSellingDiscountPercentage - decimal(6,3)
+8- ItemSellingDiscountValue - money
+9- ItemTax - money - default: 0
+10- ItemTotal - money
+
+*** TransactionPayments
+
+--------------------------------------------------------------------------------------------------------
+*********************************************
+Items Tables
+*********************************************
+(Done)
+*** ItemsMaster
+1- ItemId                 INT             IDENTITY (1, 1) NOT NULL PK
+2- ItemNameEnglish nvarchar(200)
+3- ItemOtherName nvarchar(200)
+4- ProducerCompanyId                   INT FK          
+5- ItemSellingPrice    money
+6- ItemBuyingDiscountPercentage                     DECIMAL (6, 3) default: 20
+7- ItemBuyingPrice money
+8- TaxesPercentageOnBuying DECIMAL (6, 3) NULL, default: 0
+9- ItemDescription nvarchar(max)
+10- CreatedDate datetime2(7) default: getdate()
+11- LastModified datetime2(7) default: getdate()
+7- ItemStatus                    NVARCHAR (10)    NULL,
+
+(Done)
+*** ItemsCodes
+1- ItemId int FK
+2- ItemCode nvarchar(200)
+
+(Done)
+*** ItemsQuantitiesExpiryDates (What's the quantity in stock and at what expire - 
+Example: Panadol => quantity: 3, expire: 5/2022 & Panadol => quantity: 6, expire: 7/2022)
+1- ItemId int FK
+2- ItemExpiryDate date
+3- ItemQuantity decimal(18,3)
+
+*********************************************
+Ingredients & Classes Tables
+*********************************************
+*** TherapeuticClass
+1- TherapeuticClassId
+2- TherapeuticClassName
+
+*** ItemTherapeuticClass
+1- ItemId int FK
+2- TherapeuticClassId
+
+*** PharmacologicalClass
+1- PharmacologicalClassId int
+2- PharmacologicalClassName
+
+*** Ingredient
+1- IngredientId int
+2- IngredientName nvarchar(200)
+3- PharmacologicalClassId int FK
+
+*** ItemIngredients
+1- ItemId int FK
+2- IngredientId
+
+*********************************************
+Producer Companies & Vendors Tables
+*********************************************
+(Done)
+*** ProducerCompanies
+1- ProducerCompanyId int
+2- ProducerCompanyName nvarchar(200)
+3- ProducerCompanyStatus nvarchar(10)
+
+*** Vendor
+1- VendorId int
+2- VendorName nvarchar(150)
+3- VendorBalance decimal
+4- VendorStatus nvarchar(10)
+
+*** VendorContacts
+1- VendorId int FK
+2- VendorEmployeeName nvarchar(100)
+3- VendorEmployeeTitle nvarchar(100)
+4- Phone nvarchar(20)
+5- VendorContactStatus nvarchar(10)
+
+*********************************************
+Customers Tables
+*********************************************
+
+(Done)
+*** Customers
+1- CustomerId int
+2- CustomerName nvarchar(200)
+3- CustomerEmail nvarchar(256)
+4- CustomerMedicalHistory nvarchar(MAX)
+5- CustomerNotes text
+6- CustomerStatus nvarchar(10)
+
+*** CustomerPhone (To allow multiple recordings for each customer)
+1- CustomerId - FK
+2- CustomerPhoneNumber - nvarchar(30)
+3- Status nvarchar(10)
+
+*** CustomerAddress (To allow multiple recordings for each customer) 
+1- CustomerId - FK to User table
+2- CustomerAddress - nvarchar(300)
+3- City - nvarchar(60)
+4- Country - nvarchar(60)
+5- Status nvarchar(10)
+
+Because users, customers, contractors & vendors have similar pattern for contacts, i may change to general contacts tables
+but i may exclude users, & i may need table for cities & table for countries
+
+*********************************************
+Contractors Tables
+*********************************************
+*** Contractor
+1- ContractorId int
+2- ContractorName nvarchar(200)
+3- CreditLimit decimal
+4- Status nvarchar(10)
+
+--------------------------------------------------------------------------------------------------------
+*********************************************
+Buying Transactions Tables
+*********************************************
+
+
