@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using GaroshaPrimoDesktopUI.Helpers;
 using GaroshaPrimoDesktopUI.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace GaroshaPrimoDesktopUI
 {
@@ -16,6 +18,14 @@ namespace GaroshaPrimoDesktopUI
         public Bootstrapper()
         {
             Initialize();
+
+            //The following is from this link 
+            //https://stackoverflow.com/questions/30631522/caliburn-micro-support-for-passwordbox
+
+            ConventionManager.AddElementConvention<PasswordBox>(
+            PasswordBoxHelper.BoundPasswordProperty,
+            "Password",
+            "PasswordChanged");
         }
 
         protected override void OnStartup(object sender, StartupEventArgs e)
@@ -44,7 +54,8 @@ namespace GaroshaPrimoDesktopUI
 
             _container
                 .Singleton<IWindowManager, WindowManager>()
-                .Singleton<IEventAggregator, EventAggregator>();
+                .Singleton<IEventAggregator, EventAggregator>()
+                .Singleton<IAPIHelper, APIHelper>();
 
             GetType().Assembly.GetTypes()
                 .Where(type => type.IsClass)
