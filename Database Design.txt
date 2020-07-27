@@ -6,9 +6,12 @@ User Tables
 1- Id - nvarchar(128) - (We should get it from EntityFramework database for users)
 2- Name - nvarchar(200)
 3- Email - nvarchar(256)
-4- HourRate - decimal(18,3)
+4- Status (Active or Not)
 5- CreatedDate - datetime2(7) - default: getdate()
-6- Status (Active or Not)
+
+*** UserHourRate
+1- UserId FK
+2- UserHourRate decimal(18,3)
 
 (Done)
 *** UserPhone (To allow multiple recordings for each user) (Done)
@@ -51,7 +54,7 @@ Selling Transactions Tables
 4- Subtotal - money
 5- Taxes - money
 6- Total - money
-7- CasherId - nvarchar(128) - FK
+7- CashierId - nvarchar(128) - FK
 8- CustomerId - FK
 9- NumberOfItems - int
 10- NumberOfPieces - decimal(18,3)

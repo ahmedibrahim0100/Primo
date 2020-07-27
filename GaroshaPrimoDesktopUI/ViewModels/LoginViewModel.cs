@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using GaroshaPrimoDesktopUI.Helpers;
+using GaroshaPrimoDesktopUI.Library.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -91,6 +92,7 @@ namespace GaroshaPrimoDesktopUI.ViewModels
             {
                 ErrorMessage = "";
                 var result = await _apiHelper.Authenticate(UserName, Password);
+                await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
 
             }
             catch (Exception ex)

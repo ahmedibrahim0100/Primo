@@ -217,4 +217,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="CountryId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="ed54e832-9510-4534-833f-86930a10130f" ChangeDateTime="05/01/2020 19:06:19">
+    <Property Name="ElementName" Value="[dbo].[UserHourRate].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[UserHourRate]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="48889642-6a17-4655-a3bd-9a6f9d9856c8" ChangeDateTime="05/01/2020 19:11:31">
+    <Property Name="ElementName" Value="[dbo].[UserHourRate].[HourRate]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[UserHourRate]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserHourRate" />
+  </Operation>
 </Operations>

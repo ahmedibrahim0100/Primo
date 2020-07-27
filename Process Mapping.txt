@@ -1,0 +1,40 @@
+**** Wire up Authentication in WPF project:
+1- Generate APIHelper class
+2- Define HttpClient
+3- Define "api" in App.config <appSettings>
+4- Generate Authenticate function
+5- Generate class "AuthenticatedUser", props: Access_token & UserName
+6- Install aspnet.webapi.client
+7- Extract interface from APIHelper
+8- Wire up singleton in configure fn in Bootstrapper
+9- Use IAPIHelper(interface) in LoginViewModel with DI(Dependency Injection)
+10- Call Authenticate fn in LogIn fn in LoginViewModel
+
+---- Login Form Error Handling
+1- Modify LoginView to allow error message display
+2- Update LoginviewModel: addding 2 props: IsErrorVisible(bool) & ErrorMessage - Update Login fn to handle error
+
+---- Get User Data
+1- Start new project as class library for the api
+2- Generate(g) class SqlDataAccess
+3- g fn GetConnectionString
+4- Install Dapper
+5- g fn LoadData (Read method)
+6- g fn SaveData
+7- g folder "Internal". Inside it g folder "DataAccess". Move class SqlDataAccess to DataAccess folder
+8- g folder "DataAccess". g class UserData inside it.
+9- g folder "Models"
+10- g stored procedure in database project => spUserLookup
+11- g class "UserModel" inside Models folder, mapping data resulting from spUserLookup
+12- In UserData, g fn GetUserById , returning List<UserModel>
+13- In api, g controller UserController
+14- Inside UserController, g fn GetById, in which call GetUserById fn from UserData instance, returning UserModel
+15- start new project as class library for the DesktopUI project
+16- g folder "Models". Inside it, g class "LoggedInUserModel". Map its props to the previous "Usermodel" props.
+17- g folder "API". Move "APIHelper" & its interface to this new folder. 
+18- Move "AuthenticatedUser" to Models here in the library.
+19- Add prop "Token" in LoggedInUserModel & extract an interface.
+20- Update Configure fn in Bootstrapper class to have singleton for LoggedInUserModel & its interface
+21- Inject ILoggedInUserModel in APIHelper
+22- g fn in APIHelper GetLoggedInUserInfo
+23- Call GetLoggedInUserInfo in Login fn in LoginViewModel

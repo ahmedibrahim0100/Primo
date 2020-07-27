@@ -1,0 +1,4 @@
+
+1- Initiating the project
+2- Design ShellView
+3- Design LoginView

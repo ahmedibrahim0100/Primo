@@ -79,6 +79,8 @@
     <Build Include="dbo\Tables\ProducerCompanies.sql" />
     <Build Include="dbo\Tables\ItemsCodes.sql" />
     <Build Include="dbo\Tables\ItemsQuantitiesExpiryDates.sql" />
+    <Build Include="dbo\StoredProcedures\spUserLookup.sql" />
+    <Build Include="dbo\Tables\UserHourRate.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="GaroshaPrimoData.refactorlog" />

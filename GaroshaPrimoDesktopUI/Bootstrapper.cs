@@ -1,5 +1,7 @@
 ﻿using Caliburn.Micro;
 using GaroshaPrimoDesktopUI.Helpers;
+using GaroshaPrimoDesktopUI.Library.API;
+using GaroshaPrimoDesktopUI.Library.Models;
 using GaroshaPrimoDesktopUI.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -55,6 +57,7 @@ namespace GaroshaPrimoDesktopUI
             _container
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>()
+                .Singleton<ILoggedInUserModel, LoggedInUserModel>()
                 .Singleton<IAPIHelper, APIHelper>();
 
             GetType().Assembly.GetTypes()
