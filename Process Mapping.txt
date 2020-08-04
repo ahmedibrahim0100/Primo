@@ -38,3 +38,18 @@
 21- Inject ILoggedInUserModel in APIHelper
 22- g fn in APIHelper GetLoggedInUserInfo
 23- Call GetLoggedInUserInfo in Login fn in LoginViewModel
+
+**** Wire up authentication in Angular
+1- g folder "Authentication". Inside it, g folders "Models", "Services" & "Components"
+2- g class user in "Models", mapping properties of UserModel in api library
+3- g service user in "Services"
+4- g components "signin" & "signup" in "Components"
+5- g file routes.ts under app
+6- I think we will use services in angular instead of APIHelper class in WPF
+7- design signin component
+8- set apiURL in environment.ts
+9- set apiURLforToken in environment.ts
+10- design fn "authenticate" in UserService
+11- wire up "authenticate" with signin component
+12- Add logout functionality
+13- Make use of Router Guards
