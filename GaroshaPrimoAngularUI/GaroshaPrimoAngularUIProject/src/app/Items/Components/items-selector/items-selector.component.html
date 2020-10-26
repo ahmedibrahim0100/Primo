@@ -1,0 +1,28 @@
+<p>items-selector works!</p>
+<br>
+
+<form #ItemsSelectorForm="ngForm" (ngSubmit)="getItemsByIdentifier(Identifier.value)">
+    <div class="form-group">
+        <input type="text" #Identifier ngModel name="Identifier" class="form-control" autofocus required>
+        <button class="btn btn-primary" 
+        [disabled]="!ItemsSelectorForm.valid" type="submit">Search</button>
+    </div>
+</form>
+
+<!-- <table *ngIf="selectedItems" class="table">
+    <thead class="thead-light">
+        <th>ItemNameEnglish</th>
+        <th>ExpiryDate</th>
+        <th>Stock</th>
+        <th>ItemSellingPrice</th>
+        <th>CreatedDate</th>
+    </thead>
+    <tr *ngFor="let item of selectedItems">
+        <td>{{ item.ItemNameEnglish }}</td>
+        <td>{{ item.ExpiryDate }}</td>
+        <td>{{ item.Stock }}</td>
+        <td>{{ item.ItemSellingPrice }}</td>
+        <td>{{ item.CreatedDate }}</td>
+    </tr>
+  
+</table> -->

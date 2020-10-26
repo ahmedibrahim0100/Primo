@@ -62,6 +62,7 @@
     <Folder Include="dbo\Views" />
     <Folder Include="dbo\StoredProcedures" />
     <Folder Include="PublishLocations" />
+    <Folder Include="dbo\Functions" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishLocations\GaroshaPrimoData.publish.xml" />
@@ -81,6 +82,14 @@
     <Build Include="dbo\Tables\ItemsQuantitiesExpiryDates.sql" />
     <Build Include="dbo\StoredProcedures\spUserLookup.sql" />
     <Build Include="dbo\Tables\UserHourRate.sql" />
+    <Build Include="dbo\StoredProcedures\spItems_GetAll.sql" />
+    <Build Include="dbo\Functions\TryConvertToInt.sql" />
+    <Build Include="dbo\StoredProcedures\spItems_SearchByIdentifier.sql" />
+    <Build Include="dbo\Tables\CustomerAddress.sql" />
+    <Build Include="dbo\Tables\CustomerPhone.sql" />
+    <Build Include="dbo\StoredProcedures\spCustomers_SearchByIdentifier.sql" />
+    <Build Include="dbo\Tables\SellingTransactionType.sql" />
+    <Build Include="dbo\StoredProcedures\spSellingTransactionType_GetAll.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="GaroshaPrimoData.refactorlog" />

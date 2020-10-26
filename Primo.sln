@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B2599F56-653C-4B9C-9CEA-4FAFFA9E578C}"
 	ProjectSection(SolutionItems) = preProject
 		Database Design.txt = Database Design.txt
+		Draft.txt = Draft.txt
 		Process Mapping.txt = Process Mapping.txt
 		SearchResultsAndNotes.txt = SearchResultsAndNotes.txt
 		Tasks.txt = Tasks.txt

@@ -10,6 +10,7 @@ import { User } from '../Models/user.model';
 })
 export class UserService {
 
+  //TODO - MOVE VARIABLE TO BE A CONSTRUCTOR PARAMETER
   loggedInUser: User = new User();
 
   constructor(
@@ -23,20 +24,30 @@ export class UserService {
     body = body.append('username', userName);
     body = body.append('password', password);
 
-    return this.http.post(environment.apiURLforToken + '/token', body);
+    return this.http.post(environment.apiURLforToken + '/token', body).toPromise();
   }
 
   GetLoggedInUserInfo(){
     var reqHeader = new HttpHeaders({'Authorization':'Bearer '+localStorage.getItem('userToken')});
-    this.http.get(environment.apiURL + '/User', { headers: reqHeader })
-      .subscribe(res => Object.assign(this.loggedInUser, res));
-    this.loggedInUser.Token = localStorage.getItem('userToken');
-    
+    return this.http.get(environment.apiURL + '/User', { headers: reqHeader })
+      .toPromise()
+        .then(res => this.loggedInUser = res as User)
+        .then(() => this.loggedInUser.Token = localStorage.getItem('userToken'));
+       
+     // .subscribe(res => Object.assign(this.loggedInUser, res));
+    //this.loggedInUser.Token = localStorage.getItem('userToken');
+
     //var response = this.http.get(environment.apiURL + '/User', { headers: reqHeader }).toPromise();
     // this.http.get(environment.apiURL + '/User', { headers: reqHeader })
     //   .subscribe(res => this.loggedInUser = res as User);
     // response.pipe(map(res => Object.assign(this.loggedInUser, res))).toPromise();
     // response.subscribe(res => this.loggedInUser = res as User);
     // return response;
+  }
+
+  getLoggedInUser(){
+    console.log(this.loggedInUser.Id);
+    console.log(this.loggedInUser.Name);
+    return this.loggedInUser;
   }
 }

@@ -1,0 +1,19 @@
+<p>items-list works!</p>
+<br>
+<table class="table">
+    <thead class="thead-light">
+        <th>ItemNameEnglish</th>
+        <th>ExpiryDate</th>
+        <th>Stock</th>
+        <th>ItemSellingPrice</th>
+        <th>CreatedDate</th>
+    </thead>
+    <tr *ngFor="let item of itemsList">
+        <td>{{ item.ItemNameEnglish }}</td>
+        <td>{{ item.ExpiryDate }}</td>
+        <td>{{ item.Stock }}</td>
+        <td>{{ item.ItemSellingPrice }}</td>
+        <td>{{ item.CreatedDate }}</td>
+    </tr>
+  
+</table>

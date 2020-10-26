@@ -67,10 +67,13 @@ Selling Transactions Tables
 4- ItemExpiryDate - date
 5- SellingTransactionItemQuantity - decimal(18,3) - default:1
 6- ItemSellingPrice - money
-7- ItemSellingDiscountPercentage - decimal(6,3)
-8- ItemSellingDiscountValue - money
-9- ItemTax - money - default: 0
-10- ItemTotal - money
+7- ItemSubtotal - money
+8- ItemSellingDiscountPercentage - decimal(6,3)
+9- ItemSellingDiscountValue - money
+10- ItemSellingTaxesPercentage - decimal (6,3)
+11- ItemSellingTaxesValue - money - default: 0
+12- ItemTotal - money
+13- ItemCostOnSelling - money
 
 *** TransactionPayments
 
@@ -87,11 +90,14 @@ Items Tables
 5- ItemSellingPrice    money
 6- ItemBuyingDiscountPercentage                     DECIMAL (6, 3) default: 20
 7- ItemBuyingPrice money
-8- TaxesPercentageOnBuying DECIMAL (6, 3) NULL, default: 0
-9- ItemDescription nvarchar(max)
-10- CreatedDate datetime2(7) default: getdate()
-11- LastModified datetime2(7) default: getdate()
-7- ItemStatus                    NVARCHAR (10)    NULL,
+8- TaxesPercentageOnBuying DECIMAL (6, 3) NULL, default: 0 -------------------------------
+9- TaxesValueOnBuying - money ----------------------------------------
+10- TaxesPercentageOnSelling - decimal (6,3) ----------------------------------
+11- TaxesValueOnSelling - money -----------------------------------------------
+12- ItemDescription nvarchar(max)
+13- CreatedDate datetime2(7) default: getdate()
+14- LastModified datetime2(7) default: getdate()
+15- ItemStatus                    NVARCHAR (10)    NULL,
 
 (Done)
 *** ItemsCodes
@@ -164,11 +170,13 @@ Customers Tables
 5- CustomerNotes text
 6- CustomerStatus nvarchar(10)
 
+(Done)
 *** CustomerPhone (To allow multiple recordings for each customer)
 1- CustomerId - FK
 2- CustomerPhoneNumber - nvarchar(30)
 3- Status nvarchar(10)
 
+(Done)
 *** CustomerAddress (To allow multiple recordings for each customer) 
 1- CustomerId - FK to User table
 2- CustomerAddress - nvarchar(300)

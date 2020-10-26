@@ -53,3 +53,16 @@
 11- wire up "authenticate" with signin component
 12- Add logout functionality
 13- Make use of Router Guards
+14- g fn "getLoggedInUserInfo" in userService
+15- wire it with signin component
+
+**** Wire up SellingInvoice
+1- Create stored procedure spProduct_GetAll
+2- add ItemsController
+3- g ItemModel in api library, with properties mapping columns from ItemsMaster table in db
+4- g class ItemData in DataAccess folder in api library
+5- g fn "GetAllItems" in ProductData, like the one in UserData
+6- g fn "GetAllItems" in ItemsController
+7- Add sample items in database
+8- publish database
+9- Run program and try displaying items from api browser 

@@ -231,4 +231,32 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="UserHourRate" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="d9b0ef5c-37af-4228-9a6a-5ab6847c9d41" ChangeDateTime="09/04/2020 20:30:59">
+    <Property Name="ElementName" Value="[dbo].[TransactionType].[TransactionType]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[TransactionType]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SellingTransactionType" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e340bf9a-a8b9-47d7-8764-ce24a4d1d0e9" ChangeDateTime="09/04/2020 20:31:22">
+    <Property Name="ElementName" Value="[dbo].[SellingTransactionsMaster].[TransactionType]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SellingTransactionsMaster]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SellingTransactionType" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="cfb97b0d-a817-4ea1-8b56-98f579376188" ChangeDateTime="09/04/2020 20:35:09">
+    <Property Name="ElementName" Value="[dbo].[SellingTransactionsMaster].[SellingTransactionType]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SellingTransactionsMaster]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SellingTransactionTypeId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f36c1591-4a0d-481e-b62d-f0414bc52332" ChangeDateTime="09/13/2020 15:33:16">
+    <Property Name="ElementName" Value="[dbo].[SellingTransactionsMaster].[CashierId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SellingTransactionsMaster]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SellerId" />
+  </Operation>
 </Operations>

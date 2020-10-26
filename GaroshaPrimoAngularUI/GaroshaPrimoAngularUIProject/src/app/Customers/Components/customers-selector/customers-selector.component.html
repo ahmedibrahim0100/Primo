@@ -1,0 +1,25 @@
+<form #CustomersSelectorForm="ngForm" (ngSubmit)="getCustomersByIdentifier(Identifier.value)">
+    <div class="form-group">
+        <input type="text" #Identifier ngModel name="Identifier" class="form-control" required>
+        <button class="btn btn-primary" [disabled]="!CustomersSelectorForm.valid" type="submit">Search</button>
+    </div>
+</form>
+
+<!-- <table *ngIf="selectedCustomers" class="table">
+    <thead class="thead-light">
+        <th>Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>History</th>
+        <th>Notes</th>
+        <th>Status</th>
+    </thead>
+    <tr *ngFor="let item of selectedCustomers">
+        <td>{{ item.CustomerId }}</td>
+        <td>{{ item.CustomerName }}</td>
+        <td>{{ item.CustomerEmail }}</td>
+        <td>{{ item.CustomerMedicalHistory }}</td>
+        <td>{{ item.CustomerNotes }}</td>
+        <td>{{ item.CustomerStatus }}</td>
+    </tr>
+</table> -->

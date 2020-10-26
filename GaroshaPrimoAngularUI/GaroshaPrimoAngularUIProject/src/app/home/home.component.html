@@ -5,6 +5,8 @@
 <!-- Old code to show user information -->
 <div class="row" *ngIf="loggedInUser">
     <div class="col-md-12">
+        <span>Name: {{ loggedInUser.Id }}</span>
+        <br>
         <span>Name: {{ loggedInUser.Name }}</span>
         <br>
         <span>Name: {{ loggedInUser.Email }}</span>

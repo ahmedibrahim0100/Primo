@@ -20,13 +20,26 @@ export class SignInComponent implements OnInit {
   }
 
   onSubmit(userName, password){
-    this.userService.authenticate(userName, password).subscribe((data : any) => {
-      localStorage.setItem('userToken', data.access_token);
-      this.router.navigate(['/home']);
-    },
+    this.userService.authenticate(userName, password)
+      .then((data : any) => 
+        localStorage.setItem('userToken', data.access_token))
+        .then(() => {
+          this.userService.GetLoggedInUserInfo();
+        })
+        .then(() => 
+          this.router.navigate(['/selling-invoice']) 
+        )
+        
+      //.subscribe((data : any) => {
+      //localStorage.setItem('userToken', data.access_token);
+      //this.userService.GetLoggedInUserInfo();
+      //this.router.navigate(['/home']);
+    //},
+    .catch(
     (err : HttpErrorResponse) => {
       this.isSigninError = true;
-    });
+    }
+    );
   }
 
 }

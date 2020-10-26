@@ -1,0 +1,10 @@
+ItemName
+Quantity
+Expiry
+Price
+ItemSubtotal
+ItemSellingDiscountPercentage
+ItemSellingDiscountValue
+ItemTaxesPercentage
+ItemTaxesValue
+Total

@@ -10,13 +10,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class HomeComponent implements OnInit {
 
-  // isLoadingUserDataError : boolean = false;
-  // userInfo: any;
+  isLoadingUserDataError : boolean = false;
+  userInfo: any;
   loggedInUser: User;
 
   constructor(
     public userService: UserService
-    // public loggedInUser: User
+   // public loggedInUser: User
     ) { }
 
   ngOnInit(): void {
@@ -24,24 +24,22 @@ export class HomeComponent implements OnInit {
   }
 
   getLoggedInUserInfo(){
-    // this.userService.GetLoggedInUserInfo().subscribe((data: any) => {
-    //   this.loggedInUser.Id = data.Id;
-    //   this.loggedInUser.Name = data.Name;
-    //   this.loggedInUser.Email = data.Email;
-    //   this.loggedInUser.CreatedDate = data.CreatedDate;
-    //   this.loggedInUser.Status = data.Status;
-    //   this.loggedInUser.Token = localStorage.getItem('userToken');
-    // },
-    // (err: HttpErrorResponse) => {
-    //   this.isLoadingUserDataError = true;
-    // });
-    this.userService.GetLoggedInUserInfo();
-    this.loggedInUser = this.userService.loggedInUser;
-    //.subscribe((data: any) => {
-      //this.loggedInUser = data as User;
-    //});
-  }
-
-
-
+    this.userService.GetLoggedInUserInfo().then(() => {
+      this.loggedInUser = {
+        Id : this.userService.loggedInUser.Id,
+        Name : this.userService.loggedInUser.Name,
+        Email : this.userService.loggedInUser.Email,
+        CreatedDate : this.userService.loggedInUser.CreatedDate,
+        Status : this.userService.loggedInUser.Status,
+        Token : localStorage.getItem('userToken')
+      };  
+    }).catch(
+    (err: HttpErrorResponse) => {
+      this.isLoadingUserDataError = true;
+    });
+    // this.userService.GetLoggedInUserInfo();
+    // this.loggedInUser = this.userService.loggedInUser;
+    // .subscribe((data: any) => {
+    //   this.loggedInUser = data as User;
+    }
 }
