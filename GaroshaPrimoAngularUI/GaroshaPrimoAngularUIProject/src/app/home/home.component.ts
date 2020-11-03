@@ -24,16 +24,25 @@ export class HomeComponent implements OnInit {
   }
 
   getLoggedInUserInfo(){
-    this.userService.GetLoggedInUserInfo().then(() => {
-      this.loggedInUser = {
-        Id : this.userService.loggedInUser.Id,
-        Name : this.userService.loggedInUser.Name,
-        Email : this.userService.loggedInUser.Email,
-        CreatedDate : this.userService.loggedInUser.CreatedDate,
-        Status : this.userService.loggedInUser.Status,
-        Token : localStorage.getItem('userToken')
-      };  
-    }).catch(
+    this.userService.GetLoggedInUserInfo()
+    .then(() => {
+      console.log(this.userService.loggedInUser.Name);
+      console.log(this.userService.loggedInUser.Email);
+      console.log(this.userService.loggedInUser.CreatedDate);
+      console.log(this.userService.loggedInUser.Id);
+      console.log(this.userService.loggedInUser.Status);
+    })
+    // .then(() => {
+    //   this.loggedInUser = {
+    //     Id : this.userService.loggedInUser.Id,
+    //     Name : this.userService.loggedInUser.Name,
+    //     Email : this.userService.loggedInUser.Email,
+    //     CreatedDate : this.userService.loggedInUser.CreatedDate,
+    //     Status : this.userService.loggedInUser.Status,
+    //     Token : localStorage.getItem('userToken')
+    //   };  
+    // })
+    .catch(
     (err: HttpErrorResponse) => {
       this.isLoadingUserDataError = true;
     });

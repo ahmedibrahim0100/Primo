@@ -121,13 +121,16 @@ export class SellingInvoiceComponent implements OnInit {
       Taxes: 0,
       Total: 0,
       SellerId: null,
-      ShiftOwnerId : this.userService.getLoggedInUser().Id,
+      ShiftOwnerId : this.userService.loggedInUser.Id,
       CustomerId : 1,
       NumberOfItems: 0,
       NumberOfPieces: 0
     }
 
-    console.log('ShiftOwner : '+this.userService.getLoggedInUser().Id);
+    //Testing
+    console.log('ShiftOwner : '+this.userService.loggedInUser.Id);
+    console.log('sellingTransactionType ' + this.sellingTransactionMaster.SellingTransactionTypeId);
+
   }
 
 

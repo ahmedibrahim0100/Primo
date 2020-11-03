@@ -10,7 +10,7 @@
                 <select name="SellingTransactionTypeId" #SellingTransactionTypeId="ngModel"
                     [(ngModel)]="sellingTransactionMaster.SellingTransactionTypeId" 
                     class="form-control">
-                    <option value="">- Select -</option>
+                    <!-- <option value="">- Select -</option> -->
                     <option *ngFor="let type of sellingTransactionTypes"
                     value="type.Id">{{ type.SellingTransactionType }}</option>
                 </select>

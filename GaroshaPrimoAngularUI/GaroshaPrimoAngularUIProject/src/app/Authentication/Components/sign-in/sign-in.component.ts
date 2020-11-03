@@ -24,11 +24,16 @@ export class SignInComponent implements OnInit {
       .then((data : any) => 
         localStorage.setItem('userToken', data.access_token))
         .then(() => {
-          this.userService.GetLoggedInUserInfo();
+          this.userService.GetLoggedInUserInfo()
+          .then(() => 
+            this.router.navigate(['/selling-invoice']) 
+          )
         })
-        .then(() => 
-          this.router.navigate(['/selling-invoice']) 
-        )
+        
+        //---------------------------------------------------------------------------------------
+        //.then(() => console.log(this.userService.loggedInUser)
+        //)
+        //.then(() => this.router.navigate(['/home']))
         
       //.subscribe((data : any) => {
       //localStorage.setItem('userToken', data.access_token);

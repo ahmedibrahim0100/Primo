@@ -45,6 +45,7 @@ export class UserService {
     // return response;
   }
 
+  //For testing some issues
   getLoggedInUser(){
     console.log(this.loggedInUser.Id);
     console.log(this.loggedInUser.Name);
