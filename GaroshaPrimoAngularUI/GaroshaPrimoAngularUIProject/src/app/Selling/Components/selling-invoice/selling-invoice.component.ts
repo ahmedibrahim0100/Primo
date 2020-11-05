@@ -18,6 +18,7 @@ import { CustomersBrowserComponent } from 'src/app/Customers/Components/customer
 import { SellingTransactionType } from '../../Models/selling-transaction-type.model';
 import { SellingTransactionsService } from '../../Services/selling-transactions.service';
 import { UserService } from 'src/app/Authentication/Services/user.service';
+import { User } from 'src/app/Authentication/Models/user.model';
 
 
 @Component({
@@ -33,6 +34,8 @@ export class SellingInvoiceComponent implements OnInit {
   saleItemsDisplay : SaleItemDisplay[];
   saleCustomer : Customer;
   sellingTransactionTypes : SellingTransactionType[];
+  salesMan : User;
+  shiftOwner : User;
 
   constructor(
     private dialog: MatDialog,
@@ -112,6 +115,8 @@ export class SellingInvoiceComponent implements OnInit {
     this.saleCustomer.CustomerName = 'Anonymous';
     this.sellingTransactionsService.getAllSellingTransactionTypes()
       .then(res => this.sellingTransactionTypes = res as SellingTransactionType[]);
+    this.shiftOwner = this.userService.loggedInUser;
+    this.salesMan = this.userService.loggedInUser;
 
     this.sellingTransactionMaster = {
       TransactionId: null,
@@ -120,20 +125,11 @@ export class SellingInvoiceComponent implements OnInit {
       Subtotal: 0,
       Taxes: 0,
       Total: 0,
-      SellerId: null,
-      ShiftOwnerId : this.userService.loggedInUser.Id,
+      SellerId: this.salesMan.Id,
+      ShiftOwnerId : this.shiftOwner.Id,
       CustomerId : 1,
       NumberOfItems: 0,
       NumberOfPieces: 0
     }
-
-    //Testing
-    console.log('ShiftOwner : '+this.userService.loggedInUser.Id);
-    console.log('sellingTransactionType ' + this.sellingTransactionMaster.SellingTransactionTypeId);
-
   }
-
-
-
-
 }
