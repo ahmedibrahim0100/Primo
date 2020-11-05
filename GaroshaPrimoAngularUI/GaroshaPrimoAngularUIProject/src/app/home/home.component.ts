@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   }
 
   getLoggedInUserInfo(){
-    this.userService.GetLoggedInUserInfo()
+    this.userService.GetUserInfo(this.userService.loggedInUser, this.userService.loggedInUserToken)
     .then(() => {
       console.log(this.userService.loggedInUser.Name);
       console.log(this.userService.loggedInUser.Email);

@@ -22,9 +22,9 @@ export class SignInComponent implements OnInit {
   onSubmit(userName, password){
     this.userService.authenticate(userName, password)
       .then((data : any) => 
-        localStorage.setItem('userToken', data.access_token))
+        localStorage.setItem(this.userService.loggedInUserToken, data.access_token))
         .then(() => {
-          this.userService.GetLoggedInUserInfo()
+          this.userService.GetUserInfo(this.userService.loggedInUser, this.userService.loggedInUserToken)
           .then(() => 
             this.router.navigate(['/selling-invoice']) 
           )

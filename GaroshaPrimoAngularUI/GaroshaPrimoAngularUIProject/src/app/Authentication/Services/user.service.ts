@@ -12,6 +12,8 @@ export class UserService {
 
   //TODO - MOVE VARIABLE TO BE A CONSTRUCTOR PARAMETER
   loggedInUser: User = new User();
+  loggedInUserToken : string = 'userToken';
+  salesManUserToken : string = 'salesManUserToken';
 
   constructor(
     private http : HttpClient
@@ -27,13 +29,15 @@ export class UserService {
     return this.http.post(environment.apiURLforToken + '/token', body).toPromise();
   }
 
-  GetLoggedInUserInfo(){
-    var reqHeader = new HttpHeaders({'Authorization':'Bearer '+localStorage.getItem('userToken')});
+  GetUserInfo(user : User, localStorageToken : string){
+    var reqHeader = new HttpHeaders({'Authorization':'Bearer '+localStorage.getItem(localStorageToken)});
     return this.http.get(environment.apiURL + '/User', { headers: reqHeader })
       .toPromise()
-        .then(res => this.loggedInUser = res as User)
-        .then(() => this.loggedInUser.Token = localStorage.getItem('userToken'));
-       
+        .then(res => user = res as User)
+        .then(() => user.Token = localStorage.getItem(localStorageToken));
+        //.then(res => this.loggedInUser = res as User)
+        //.then(() => this.loggedInUser.Token = localStorage.getItem('userToken'));
+       //--------------------------------------------------------------------------------------------
      // .subscribe(res => Object.assign(this.loggedInUser, res));
     //this.loggedInUser.Token = localStorage.getItem('userToken');
 

@@ -1,0 +1,42 @@
+<!-- <form #AssignUserForm="ngForm" (ngSubmit)="onRequestUserVerification(Identifier.value)">
+    <div class="form-group">
+        <input type="text" #Identifier ngModel name="Identifier" class="form-control" required>
+        <button class="btn btn-primary" [disabled]="!AssignUserForm.valid" type="submit">Verify</button>
+    </div>
+</form> -->
+
+<div *ngIf="isSigninError" class="row">
+    <div class="col-md-12">Incorrect credentials</div>
+</div>
+
+<form #signinForm="ngForm" class="form-signin" (ngSubmit)="onSubmit(UserName.value, Password.value)">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="email" #UserName ngModel name="UserName" class="form-control" placeholder="username"
+                    required autofocus>
+            </div>
+            <br>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" #Password ngModel name="Password" class="form-control" placeholder="password"
+                    required>
+            </div>
+
+            <!-- <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+      </div> -->
+
+            <br>
+            <button class="btn btn-lg btn-primary btn-block" [disabled]="!signinForm.valid" type="submit">
+                Verify
+            </button>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</form>

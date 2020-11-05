@@ -19,6 +19,7 @@ import { SellingTransactionType } from '../../Models/selling-transaction-type.mo
 import { SellingTransactionsService } from '../../Services/selling-transactions.service';
 import { UserService } from 'src/app/Authentication/Services/user.service';
 import { User } from 'src/app/Authentication/Models/user.model';
+import { AssignUserComponent } from 'src/app/Authentication/Components/assign-user/assign-user.component';
 
 
 @Component({
@@ -104,6 +105,10 @@ export class SellingInvoiceComponent implements OnInit {
   //     dialogConfig.width = "50%";
   //     return dialogConfig;
   // }
+
+  onChangeSalesManRequest(){
+    this.dialog.open(AssignUserComponent);
+  }
 
   resetForm(form?: NgForm) {
     if (form = null)

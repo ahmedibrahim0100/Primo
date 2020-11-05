@@ -8,25 +8,31 @@
             <div class="form-group">
                 <label>Transaction Type</label>
                 <select name="SellingTransactionTypeId" #SellingTransactionTypeId="ngModel"
-                    [(ngModel)]="sellingTransactionMaster.SellingTransactionTypeId" 
-                    class="form-control">
+                    [(ngModel)]="sellingTransactionMaster.SellingTransactionTypeId" class="form-control">
                     <!-- <option value="">- Select -</option> -->
-                    <option *ngFor="let type of sellingTransactionTypes"
-                    value="type.Id">{{ type.SellingTransactionType }}</option>
+                    <option *ngFor="let type of sellingTransactionTypes" value="type.Id">
+                        {{ type.SellingTransactionType }}</option>
                 </select>
             </div>
         </div>
         <div class="col-sm-3">
-            <div class="form-group">
-                <label>Cashier</label>
-                <input name="SalesManName" #SalesManName="ngModel" [(ngModel)]="salesMan.Name"
-                type="text" class="form-control">
-                <input name="ShiftOwnerName" #ShiftOwnerName="ngModel" [(ngModel)]="shiftOwner.Name"
-                type="text" class="form-control">
-                <input name="SellerId" #SellerId="ngModel" type="hidden"
-                    [(ngModel)]="sellingTransactionMaster.SellerId">
-                <input name="ShiftOwnerId" #ShiftOwnerId="ngModel" type="hidden"
-                [(ngModel)]="sellingTransactionMaster.ShiftOwnerId">
+            <div class="row">
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <label>Cashier</label>
+                        <input name="SalesManName" #SalesManName="ngModel" [(ngModel)]="salesMan.Name" type="text"
+                            class="form-control">
+                        <input name="ShiftOwnerName" #ShiftOwnerName="ngModel" [(ngModel)]="shiftOwner.Name" type="text"
+                            class="form-control">
+                        <input name="SellerId" #SellerId="ngModel" type="hidden"
+                            [(ngModel)]="sellingTransactionMaster.SellerId">
+                        <input name="ShiftOwnerId" #ShiftOwnerId="ngModel" type="hidden"
+                            [(ngModel)]="sellingTransactionMaster.ShiftOwnerId">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <button class="btn btn-primary" (click)="onChangeSalesManRequest()">Change</button>
+                </div>
             </div>
         </div>
         <div class="col-sm-3">
