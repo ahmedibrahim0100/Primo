@@ -26,10 +26,14 @@ export class AssignUserComponent implements OnInit {
   onSubmit(username, password) {
     this.userService.authenticate(username, password)
       .then((data: any) =>
-        localStorage.setItem(this.userService.salesManUserToken, data.access_token))
-      .then(() => {
-        this.userService.GetUserInfo(this.assignedUser, this.userService.salesManUserToken)
-      })
+        localStorage.setItem(this.userService.salesManUserTokenName, data.access_token))
+      .then(() => 
+        this.userService.GetUserInfo(this.userService.salesManUserTokenName)
+          .then(result => this.assignedUser = result as User)
+            .then(() => this.assignedUser.Token = localStorage.getItem(this.userService.salesManUserTokenName))
+              .then(() => console.log(this.assignedUser.Name))
+              //.then(() => this.dialogRef.close(this.assignedUser))
+      )
       .catch(
         (err: HttpErrorResponse) => {
           this.isSigninError = true;

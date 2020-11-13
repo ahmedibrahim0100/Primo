@@ -98,16 +98,18 @@ export class SellingInvoiceComponent implements OnInit {
 
   }
 
-  // configureDialog() : any {
-  //   const dialogConfig = new MatDialogConfig();
-  //     dialogConfig.autoFocus = true;
-  //     dialogConfig.disableClose = true;
-  //     dialogConfig.width = "50%";
-  //     return dialogConfig;
-  // }
+  configureDialog() : MatDialogConfig {
+    const dialogConfig = new MatDialogConfig();
+      dialogConfig.autoFocus = true;
+      dialogConfig.disableClose = true;
+      dialogConfig.width = "50%";
+      return dialogConfig;
+  }
 
   onChangeSalesManRequest(){
-    this.dialog.open(AssignUserComponent);
+    this.dialog.open(AssignUserComponent, this.configureDialog())
+      .afterClosed()
+      .subscribe((data : User) => this.salesMan = data);
   }
 
   resetForm(form?: NgForm) {
@@ -136,5 +138,7 @@ export class SellingInvoiceComponent implements OnInit {
       NumberOfItems: 0,
       NumberOfPieces: 0
     }
+
+    console.log(this.userService.loggedInUser.Name);
   }
 }
