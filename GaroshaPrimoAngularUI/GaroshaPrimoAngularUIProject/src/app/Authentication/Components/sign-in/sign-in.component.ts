@@ -21,7 +21,6 @@ export class SignInComponent implements OnInit {
   }
 
   onSubmit(userName, password){
-    // debugger;
     this.userService.authenticate(userName, password)
       .then(
         (data : any) => localStorage.setItem(this.userService.loggedInUserTokenName, data.access_token))

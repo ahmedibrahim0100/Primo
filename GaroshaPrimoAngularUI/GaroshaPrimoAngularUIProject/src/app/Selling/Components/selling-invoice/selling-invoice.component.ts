@@ -110,6 +110,7 @@ export class SellingInvoiceComponent implements OnInit {
     this.dialog.open(AssignUserComponent, this.configureDialog())
       .afterClosed()
       .subscribe((data : User) => {
+        if(!data) return;
         this.salesMan = data as User;
         console.log(this.salesMan.Name);
         });

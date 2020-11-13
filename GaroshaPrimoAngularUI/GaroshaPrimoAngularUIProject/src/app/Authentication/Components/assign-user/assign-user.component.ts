@@ -34,9 +34,7 @@ export class AssignUserComponent implements OnInit {
               .then(() => this.dialogRef.close(this.assignedUser))
       )
       .catch(
-        (err: HttpErrorResponse) => {
-          this.isSigninError = true;
-        }
+        (err: HttpErrorResponse) => this.isSigninError = true
       );
   }
 }
