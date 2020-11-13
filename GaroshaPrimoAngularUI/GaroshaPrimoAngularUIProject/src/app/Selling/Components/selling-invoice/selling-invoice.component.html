@@ -21,9 +21,9 @@
                     <div class="form-group">
                         <label>Cashier</label>
                         <input name="SalesManName" #SalesManName="ngModel" [(ngModel)]="salesMan.Name" type="text"
-                            class="form-control">
+                            class="form-control" readonly>
                         <input name="ShiftOwnerName" #ShiftOwnerName="ngModel" [(ngModel)]="shiftOwner.Name" type="text"
-                            class="form-control">
+                            class="form-control" readonly>
                         <input name="SellerId" #SellerId="ngModel" type="hidden"
                             [(ngModel)]="sellingTransactionMaster.SellerId">
                         <input name="ShiftOwnerId" #ShiftOwnerId="ngModel" type="hidden"

@@ -109,7 +109,10 @@ export class SellingInvoiceComponent implements OnInit {
   onChangeSalesManRequest(){
     this.dialog.open(AssignUserComponent, this.configureDialog())
       .afterClosed()
-      .subscribe((data : User) => this.salesMan = data);
+      .subscribe((data : User) => {
+        this.salesMan = data as User;
+        console.log(this.salesMan.Name);
+        });
   }
 
   resetForm(form?: NgForm) {
@@ -138,7 +141,5 @@ export class SellingInvoiceComponent implements OnInit {
       NumberOfItems: 0,
       NumberOfPieces: 0
     }
-
-    console.log(this.userService.loggedInUser.Name);
   }
 }

@@ -31,8 +31,7 @@ export class AssignUserComponent implements OnInit {
         this.userService.GetUserInfo(this.userService.salesManUserTokenName)
           .then(result => this.assignedUser = result as User)
             .then(() => this.assignedUser.Token = localStorage.getItem(this.userService.salesManUserTokenName))
-              .then(() => console.log(this.assignedUser.Name))
-              //.then(() => this.dialogRef.close(this.assignedUser))
+              .then(() => this.dialogRef.close(this.assignedUser))
       )
       .catch(
         (err: HttpErrorResponse) => {
