@@ -1,10 +1,8 @@
-<p>items-selector works!</p>
-<br>
-
-<form #ItemsSelectorForm="ngForm" (ngSubmit)="getItemsByIdentifier(Identifier.value)">
+<form #ItemsSelectorForm="ngForm" (ngSubmit)="getItemsByIdentifier(Identifier.value)"
+    class="form-inline">
     <div class="form-group">
         <input type="text" #Identifier ngModel name="Identifier" class="form-control" autofocus required>
-        <button class="btn btn-primary" 
+        <button class="btn btn-primary ml-2" 
         [disabled]="!ItemsSelectorForm.valid" type="submit">Search</button>
     </div>
 </form>
