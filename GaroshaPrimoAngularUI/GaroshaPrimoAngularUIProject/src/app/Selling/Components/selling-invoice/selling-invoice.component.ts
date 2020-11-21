@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemModel } from 'src/app/Items/Models/item-model.model';
-import { Observer } from 'rxjs';
+import { Observer, of } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ItemsBrowserComponent } from 'src/app/Items/Components/items-browser/items-browser.component';
 import { SellingTransactionMasterData } from '../../Models/selling-transaction-master-data.model';
@@ -66,12 +66,13 @@ export class SellingInvoiceComponent implements OnInit {
               SellingTransactionItemQuantity: 1,
               ItemSellingPrice: addedItems[0].ItemSellingPrice,
               Stock : addedItems[0].Stock,
-              ItemSubtotal: 0,
+              ItemSubtotal: addedItems[0].ItemSellingPrice,
               ItemSellingDiscountPercentage: 0,
               ItemSellingDiscountValue: 0,
               ItemSellingTaxesPercentage: addedItems[0].TaxesPercentageOnSelling,
-              ItemSellingTaxesValue: 0,
-              ItemTotal: 0,
+              ItemSellingTaxesValue: (addedItems[0].TaxesPercentageOnSelling * addedItems[0].ItemSellingPrice) / 100,
+              ItemTotal: addedItems[0].ItemSellingPrice + 
+              ((addedItems[0].TaxesPercentageOnSelling * addedItems[0].ItemSellingPrice) / 100),
               ItemCostOnSelling : 
               (addedItems[0].ItemBuyingPrice + addedItems[0].TaxesValueOnBuying) * 1
         }
@@ -116,6 +117,49 @@ export class SellingInvoiceComponent implements OnInit {
         });
   }
 
+  updateSubtotal(index : number){
+    this.saleItemsDisplay[index].ItemSubtotal = 
+      this.saleItemsDisplay[index].SellingTransactionItemQuantity * this.saleItemsDisplay[index].ItemSellingPrice;
+
+    this.updateItemSellingTaxesValue(index);
+  }
+
+  updateItemSellingTaxesValue(index : number){
+     this.saleItemsDisplay[index].ItemSellingTaxesValue =
+      (this.saleItemsDisplay[index].ItemSubtotal * this.saleItemsDisplay[index].ItemSellingTaxesPercentage) / 100;
+
+      this.updateItemSellingDiscountValue(index);
+  }
+
+  updateItemSellingTaxesPercentage(index : number){
+    this.saleItemsDisplay[index].ItemSellingTaxesPercentage = 
+      (this.saleItemsDisplay[index].ItemSellingTaxesValue / this.saleItemsDisplay[index].ItemSubtotal) * 100;
+
+    this.updateItemTotal(index);
+  }
+
+  updateItemSellingDiscountValue(index : number){
+    this.saleItemsDisplay[index].ItemSellingDiscountValue = 
+      ((this.saleItemsDisplay[index].ItemSubtotal + this.saleItemsDisplay[index].ItemSellingTaxesValue)
+       * this.saleItemsDisplay[index].ItemSellingDiscountPercentage) / 100;
+
+    this.updateItemTotal(index);
+  }
+
+  updateItemSellingDiscountPercentage(index : number){  
+    this.saleItemsDisplay[index].ItemSellingDiscountPercentage = 
+      (this.saleItemsDisplay[index].ItemSellingDiscountValue / 
+        (this.saleItemsDisplay[index].ItemSubtotal + this.saleItemsDisplay[index].ItemSellingTaxesValue)) * 100;
+
+    this.updateItemTotal(index);
+  }
+
+  updateItemTotal(index : number){
+    this.saleItemsDisplay[index].ItemTotal = 
+      (this.saleItemsDisplay[index].ItemSubtotal + this.saleItemsDisplay[index].ItemSellingTaxesValue)
+        - this.saleItemsDisplay[index].ItemSellingDiscountValue;
+  }
+
   resetForm(form?: NgForm) {
     if (form = null)
       form.resetForm();
@@ -134,13 +178,20 @@ export class SellingInvoiceComponent implements OnInit {
       SellingTransactionTypeId: 1,
       TransactionTiming: new Date(),
       Subtotal: 0,
-      Taxes: 0,
+      TaxesPercentage : 0,
+      TaxesValue : 0,
+      DiscountPercentage : 0,
+      DiscountValue : 0,
       Total: 0,
       SellerId: this.salesMan.Id,
       ShiftOwnerId : this.shiftOwner.Id,
       CustomerId : 1,
       NumberOfItems: 0,
       NumberOfPieces: 0
+      
+     
+    
+	
     }
   }
 }
