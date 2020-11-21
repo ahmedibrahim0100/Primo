@@ -52,12 +52,15 @@ Selling Transactions Tables
 2- TransactionType - nvarchar(50) - Delivery | Contract | On Site
 3- TransactionTiming - datetime2(7) - default: getdate()
 4- Subtotal - money
-5- Taxes - money
-6- Total - money
-7- CashierId - nvarchar(128) - FK
-8- CustomerId - FK
-9- NumberOfItems - int
-10- NumberOfPieces - decimal(18,3)
+5- TaxesPercentage - DECIMAL (6, 3)
+6- Taxes - money
+7- DiscountPercentage - DECIMAL (6, 3)
+8- DiscountValue - MONEY
+9- Total - money
+10- CashierId - nvarchar(128) - FK
+11- CustomerId - FK
+12- NumberOfItems - int
+13- NumberOfPieces - decimal(18,3)
 
 (Done)
 *** SellingTransactionsItems
