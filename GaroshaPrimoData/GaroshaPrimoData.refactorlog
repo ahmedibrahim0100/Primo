@@ -259,4 +259,32 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="SellerId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="8fa3c3c4-242c-4864-9839-5c6fc4796af6" ChangeDateTime="11/25/2020 19:33:15">
+    <Property Name="ElementName" Value="[dbo].[SellingTransactionsMaster].[TaxesPercentage]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SellingTransactionsMaster]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="calculatedTaxesPercentage" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a99c4c2d-f696-4459-ad9d-a56325257a3b" ChangeDateTime="11/25/2020 19:33:25">
+    <Property Name="ElementName" Value="[dbo].[SellingTransactionsMaster].[TaxesValue]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SellingTransactionsMaster]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="calculatedTaxesValue" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6aaf6660-90d7-447b-99fe-31f7342880ec" ChangeDateTime="11/25/2020 19:33:32">
+    <Property Name="ElementName" Value="[dbo].[SellingTransactionsMaster].[DiscountPercentage]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SellingTransactionsMaster]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="calculatedDiscountPercentage" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c93b850c-9eb7-4f6d-9e52-64a5954d1e7b" ChangeDateTime="11/25/2020 19:34:16">
+    <Property Name="ElementName" Value="[dbo].[SellingTransactionsMaster].[DiscountValue]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[SellingTransactionsMaster]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="calculatedDiscountValue" />
+  </Operation>
 </Operations>

@@ -160,6 +160,35 @@ export class SellingInvoiceComponent implements OnInit {
         - this.saleItemsDisplay[index].ItemSellingDiscountValue;
   }
 
+  updateSaleSubtotal(){
+    this.saleItemsDisplay.forEach(element => {
+      this.sellingTransactionMaster.Subtotal += element.ItemSubtotal
+    });
+  }
+
+  calculateSaleTaxesValue(){
+    // this.saleItemsDisplay.forEach(element => {
+    //   this.sellingTransactionMaster.TaxesValue += element.ItemSellingTaxesValue
+   // });
+  }
+
+  updateSaleTaxesPercentage(){
+    // this.sellingTransactionMaster.TaxesPercentage = 
+    //   (this.sellingTransactionMaster.TaxesValue / this.sellingTransactionMaster.Subtotal)
+    //     * 100;
+  }
+
+  //Called when the user changes Sale TaxesPercentage manually
+  updateSaleTaxesValue(){
+    // this.sellingTransactionMaster.TaxesValue = 
+    // (this.sellingTransactionMaster.Subtotal * this.sellingTransactionMaster.TaxesPercentage)
+    //   / 100;
+  }
+
+  calculateSaleTotal(){
+    
+  }
+
   resetForm(form?: NgForm) {
     if (form = null)
       form.resetForm();
@@ -178,20 +207,20 @@ export class SellingInvoiceComponent implements OnInit {
       SellingTransactionTypeId: 1,
       TransactionTiming: new Date(),
       Subtotal: 0,
-      TaxesPercentage : 0,
-      TaxesValue : 0,
-      DiscountPercentage : 0,
-      DiscountValue : 0,
+      calculatedTaxesPercentage : 0,
+      calculatedTaxesValue : 0,
+      calculatedDiscountPercentage : 0,
+      calculatedDiscountValue : 0,
+      TaxesPercentageOverInvoice : 0,
+      TaxesValueOverInvoice : 0,
+      DiscountPercentageOverInvoice : 0,
+      DiscountValueOverInvoice : 0,
       Total: 0,
       SellerId: this.salesMan.Id,
       ShiftOwnerId : this.shiftOwner.Id,
       CustomerId : 1,
       NumberOfItems: 0,
-      NumberOfPieces: 0
-      
-     
-    
-	
+      NumberOfPieces: 0    	
     }
   }
 }

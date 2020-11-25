@@ -52,15 +52,21 @@ Selling Transactions Tables
 2- TransactionType - nvarchar(50) - Delivery | Contract | On Site
 3- TransactionTiming - datetime2(7) - default: getdate()
 4- Subtotal - money
-5- TaxesPercentage - DECIMAL (6, 3)
-6- Taxes - money
-7- DiscountPercentage - DECIMAL (6, 3)
-8- DiscountValue - MONEY
-9- Total - money
-10- CashierId - nvarchar(128) - FK
-11- CustomerId - FK
-12- NumberOfItems - int
-13- NumberOfPieces - decimal(18,3)
+5- calculatedTaxesPercentage DECIMAL (6, 3) NULL, => it is the taxes percentage based on taxes of every item, and so on for any column has the word 'calculated' in this table
+6- calculatedTaxesValue MONEY NULL, 
+7- calculatedDiscountPercentage DECIMAL (6, 3) NULL,
+8- calculatedDiscountValue MONEY NULL,
+9- TaxesPercentageOverInvoice DECIMAL (6, 3) NULL, => it is the taxes percentage the seller can add for the overall sale regardless of the calculated taxes
+10- TaxesValueOverInvoice MONEY NULL,
+11-	DiscountPercentageOverInvoice DECIMAL (6, 3) NULL,
+12-	DiscountValueOverInvoice MONEY NULL,
+13- Total - money
+14- SellerId - nvarchar(128) - FK
+15- ShiftOwnerId
+16- CustomerId - FK
+17- NumberOfItems - int
+18- NumberOfPieces - decimal(18,3)
+
 
 (Done)
 *** SellingTransactionsItems
