@@ -144,36 +144,41 @@
             <div class="col-sm-1">
                 <div class="form-group">
                     <label>Taxes %</label>
-                    <input name="TaxesPercentage" #TaxesPercentage="ngModel" type="number" [(ngModel)]="sellingTransactionMaster.TaxesPercentage"
-                        class="form-control">
+                    <input name="CalculatedTaxesPercentage" #TaxesPercentage="ngModel" type="number" 
+                        [(ngModel)]="sellingTransactionMaster.CalculatedTaxesPercentage"
+                        class="form-control" readonly>
                 </div>
             </div>
             <div class="col-sm-1">
                 <div class="form-group">
                     <label>Taxes</label>
-                    <input name="TaxesValue" #TaxesValue="ngModel" type="number" [(ngModel)]="sellingTransactionMaster.TaxesValue"
-                        class="form-control">
+                    <input name="CalculatedTaxesValue" #TaxesValue="ngModel" type="number" 
+                        [(ngModel)]="sellingTransactionMaster.CalculatedTaxesValue"
+                        class="form-control" readonly>
                 </div>
             </div>
             <div class="col-sm-1">
                 <div class="form-group">
                     <label>Discount %</label>
-                    <input name="DiscountPercentage" #DiscountPercentage="ngModel" type="number" [(ngModel)]="sellingTransactionMaster.DiscountPercentage"
-                        class="form-control">
+                    <input name="CalculatedDiscountPercentage" #DiscountPercentage="ngModel" type="number" 
+                        [(ngModel)]="sellingTransactionMaster.CalculatedDiscountPercentage"
+                        class="form-control" readonly>
                 </div>
             </div>
             <div class="col-sm-1">
                 <div class="form-group">
                     <label>Discount</label>
-                    <input name="DiscountValue" #DiscountValue="ngModel" type="number" [(ngModel)]="sellingTransactionMaster.DiscountValue"
-                        class="form-control">
+                    <input name="CalculatedDiscountValue" #DiscountValue="ngModel" type="number" 
+                        [(ngModel)]="sellingTransactionMaster.CalculatedDiscountValue"
+                        class="form-control" readonly>
                 </div>
             </div>
             <div class="col-sm-3">
                 <div class="form-group">
                     <label>Total</label>
-                    <input name="Total" #Total="ngModel" type="text" [(ngModel)]="sellingTransactionMaster.Total"
-                        class="form-control">
+                    <input name="Total" #Total="ngModel" type="text" 
+                        [(ngModel)]="sellingTransactionMaster.Total"
+                        class="form-control" readonly>
                 </div>
             </div>
             <div class="col-sm-3 form-group">

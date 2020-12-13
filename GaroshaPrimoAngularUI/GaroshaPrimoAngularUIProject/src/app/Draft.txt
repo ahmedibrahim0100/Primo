@@ -1,0 +1,58 @@
+Adding item affects:
+    - subtotal
+    - calculatedtaxesvalue
+    - calculatedTaxesPercentage
+    - CalculatedSaleDiscountValue
+    - CalculatedSaleDiscountPercentage
+    - TaxesValueOverInvoice based on the current percentage
+    - DiscountValueOverInvoice based on the current percentage
+    - total
+
+Changing item quantity affects:
+    - item subtotal
+    - itemSellingDiscountValue based on the current itemSellingDiscountPercentage
+    - itemSellingTaxesValue based on the current itemSellingDiscountPercentage
+    - itemTotal
+    - All totals of the transaction as in adding item condition
+
+Changing itemSellingDiscountPercentage affects:
+    - itemSellingDiscountValue
+    - itemTotal
+    - All totals of the transaction as in adding item condition
+
+Changing itemSellingDiscountValue affects:
+    - itemSellingDiscountPercentage
+    - itemTotal
+    - All totals of the transaction as in adding item condition
+
+Changing itemSellingTaxesPercentage affects:
+    - itemSellingTaxesValue
+    - itemSellingDiscountValue based on its current percentage
+    - itemTotal
+    - All totals of the transaction as in adding item condition
+
+Changing itemSellingTaxesValue affects:
+    - itemSellingTaxesPercentage
+    - itemSellingDiscountValue based on its current percentage
+    - itemTotal
+    - All totals of the transaction as in adding item condition
+
+Changing TaxesPercentageOverInvoice affects:
+    - TaxesValueOverInvoice
+    - DiscountValueOverInvoice based on its current percentage
+    - total
+
+Changing TaxesValueOverInvoice affects:
+    - TaxesPercentageOverInvoice
+    - DiscountValueOverInvoice based on its current percentage
+    - total
+
+Changing DiscountPercentageOverInvoice affects:
+    - DiscountValueOverInvoice
+    - total
+
+Changing DiscountValueOverInvoice affects:
+    - DiscountPercentageOverInvoice
+    - total
+
+

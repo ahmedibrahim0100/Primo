@@ -3,10 +3,10 @@ export class SellingTransactionMasterData {
     SellingTransactionTypeId : number; 
     TransactionTiming : Date; 
     Subtotal : number; 
-    calculatedTaxesPercentage : number;
-    calculatedTaxesValue : number; 
-    calculatedDiscountPercentage : number;
-    calculatedDiscountValue : number;
+    CalculatedTaxesPercentage : number;
+    CalculatedTaxesValue : number; 
+    CalculatedDiscountPercentage : number;
+    CalculatedDiscountValue : number;
     TaxesPercentageOverInvoice : number;
     TaxesValueOverInvoice : number;
     DiscountPercentageOverInvoice : number;

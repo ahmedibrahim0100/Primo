@@ -29,20 +29,20 @@ import { AssignUserComponent } from 'src/app/Authentication/Components/assign-us
 })
 export class SellingInvoiceComponent implements OnInit {
 
-  selectedItems? : ItemModel[];
-  sellingTransactionMaster : SellingTransactionMasterData;
-  saleItems : SaleItem[];
-  saleItemsDisplay : SaleItemDisplay[];
-  saleCustomer : Customer;
-  sellingTransactionTypes : SellingTransactionType[];
-  salesMan : User;
-  shiftOwner : User;
+  selectedItems?: ItemModel[];
+  sellingTransactionMaster: SellingTransactionMasterData;
+  saleItems: SaleItem[];
+  saleItemsDisplay: SaleItemDisplay[];
+  saleCustomer: Customer;
+  sellingTransactionTypes: SellingTransactionType[];
+  salesMan: User;
+  shiftOwner: User;
 
   constructor(
     private dialog: MatDialog,
-    private customersService : CustomersService,
-    private sellingTransactionsService : SellingTransactionsService,
-    private userService : UserService
+    private customersService: CustomersService,
+    private sellingTransactionsService: SellingTransactionsService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -52,141 +52,187 @@ export class SellingInvoiceComponent implements OnInit {
     // this.sellingTransactionMaster = new SellingTransactionMasterData();
   }
 
-  async onGettingItems(addedItems : ItemModel[]) {
+  async onGettingItems(addedItems: ItemModel[]) {
     await addedItems;
     const no = await addedItems.length;
-    if(no > 1){
+    if (no > 1) {
       this.dialog.open(ItemsBrowserComponent);
-    }else if(no == 1){
-        var saleItemDisplay : SaleItemDisplay
-        saleItemDisplay = {
-              ItemId: addedItems[0].ItemId,
-              ItemNameEnglish : addedItems[0].ItemNameEnglish,
-              ItemExpiryDate: addedItems[0].ExpiryDate,
-              SellingTransactionItemQuantity: 1,
-              ItemSellingPrice: addedItems[0].ItemSellingPrice,
-              Stock : addedItems[0].Stock,
-              ItemSubtotal: addedItems[0].ItemSellingPrice,
-              ItemSellingDiscountPercentage: 0,
-              ItemSellingDiscountValue: 0,
-              ItemSellingTaxesPercentage: addedItems[0].TaxesPercentageOnSelling,
-              ItemSellingTaxesValue: (addedItems[0].TaxesPercentageOnSelling * addedItems[0].ItemSellingPrice) / 100,
-              ItemTotal: addedItems[0].ItemSellingPrice + 
-              ((addedItems[0].TaxesPercentageOnSelling * addedItems[0].ItemSellingPrice) / 100),
-              ItemCostOnSelling : 
-              (addedItems[0].ItemBuyingPrice + addedItems[0].TaxesValueOnBuying) * 1
-        }
-        this.saleItemsDisplay.push(await saleItemDisplay);
+    } else if (no == 1) {
+      var saleItemDisplay: SaleItemDisplay
+      saleItemDisplay = {
+        ItemId: addedItems[0].ItemId,
+        ItemNameEnglish: addedItems[0].ItemNameEnglish,
+        ItemExpiryDate: addedItems[0].ExpiryDate,
+        SellingTransactionItemQuantity: 1,
+        ItemSellingPrice: addedItems[0].ItemSellingPrice,
+        Stock: addedItems[0].Stock,
+        ItemSubtotal: addedItems[0].ItemSellingPrice,
+        ItemSellingDiscountPercentage: 0,
+        ItemSellingDiscountValue: 0,
+        ItemSellingTaxesPercentage: addedItems[0].TaxesPercentageOnSelling,
+        ItemSellingTaxesValue: (addedItems[0].TaxesPercentageOnSelling * addedItems[0].ItemSellingPrice) / 100,
+        ItemTotal: addedItems[0].ItemSellingPrice +
+          ((addedItems[0].TaxesPercentageOnSelling * addedItems[0].ItemSellingPrice) / 100),
+        ItemCostOnSelling:
+          (addedItems[0].ItemBuyingPrice + addedItems[0].TaxesValueOnBuying) * 1
+      }
+      this.saleItemsDisplay.push(await saleItemDisplay);
     }
     console.log(no);
   }
 
-  onCannotGetItems(){
+  onCannotGetItems() {
 
   }
 
-  async onGettingCustomers(retrievedCustomers : Customer[]){
+  async onGettingCustomers(retrievedCustomers: Customer[]) {
     await retrievedCustomers;
     const no = await retrievedCustomers.length;
-    if(no > 1){
+    if (no > 1) {
       this.dialog.open(CustomersBrowserComponent);
-    }else if(no == 1){
+    } else if (no == 1) {
       this.saleCustomer = retrievedCustomers[0];
     }
   }
 
-  onCannotGetCustomers(){
+  onCannotGetCustomers() {
 
   }
 
-  configureDialog() : MatDialogConfig {
+  configureDialog(): MatDialogConfig {
     const dialogConfig = new MatDialogConfig();
-      dialogConfig.autoFocus = true;
-      dialogConfig.disableClose = true;
-      dialogConfig.width = "50%";
-      return dialogConfig;
+    dialogConfig.autoFocus = true;
+    dialogConfig.disableClose = true;
+    dialogConfig.width = "50%";
+    return dialogConfig;
   }
 
-  onChangeSalesManRequest(){
+  onChangeSalesManRequest() {
     this.dialog.open(AssignUserComponent, this.configureDialog())
       .afterClosed()
-      .subscribe((data : User) => {
-        if(!data) return;
+      .subscribe((data: User) => {
+        if (!data) return;
         this.salesMan = data as User;
         console.log(this.salesMan.Name);
-        });
+      });
   }
 
-  updateSubtotal(index : number){
-    this.saleItemsDisplay[index].ItemSubtotal = 
+  updateSubtotal(index: number) {
+    this.saleItemsDisplay[index].ItemSubtotal =
       this.saleItemsDisplay[index].SellingTransactionItemQuantity * this.saleItemsDisplay[index].ItemSellingPrice;
 
     this.updateItemSellingTaxesValue(index);
   }
 
-  updateItemSellingTaxesValue(index : number){
-     this.saleItemsDisplay[index].ItemSellingTaxesValue =
+  updateItemSellingTaxesValue(index: number) {
+    this.saleItemsDisplay[index].ItemSellingTaxesValue =
       (this.saleItemsDisplay[index].ItemSubtotal * this.saleItemsDisplay[index].ItemSellingTaxesPercentage) / 100;
 
-      this.updateItemSellingDiscountValue(index);
+    this.updateItemSellingDiscountValue(index);
   }
 
-  updateItemSellingTaxesPercentage(index : number){
-    this.saleItemsDisplay[index].ItemSellingTaxesPercentage = 
+  updateItemSellingTaxesPercentage(index: number) {
+    this.saleItemsDisplay[index].ItemSellingTaxesPercentage =
       (this.saleItemsDisplay[index].ItemSellingTaxesValue / this.saleItemsDisplay[index].ItemSubtotal) * 100;
 
     this.updateItemTotal(index);
   }
 
-  updateItemSellingDiscountValue(index : number){
-    this.saleItemsDisplay[index].ItemSellingDiscountValue = 
+  updateItemSellingDiscountValue(index: number) {
+    this.saleItemsDisplay[index].ItemSellingDiscountValue =
       ((this.saleItemsDisplay[index].ItemSubtotal + this.saleItemsDisplay[index].ItemSellingTaxesValue)
-       * this.saleItemsDisplay[index].ItemSellingDiscountPercentage) / 100;
+        * this.saleItemsDisplay[index].ItemSellingDiscountPercentage) / 100;
 
     this.updateItemTotal(index);
   }
 
-  updateItemSellingDiscountPercentage(index : number){  
-    this.saleItemsDisplay[index].ItemSellingDiscountPercentage = 
-      (this.saleItemsDisplay[index].ItemSellingDiscountValue / 
+  updateItemSellingDiscountPercentage(index: number) {
+    this.saleItemsDisplay[index].ItemSellingDiscountPercentage =
+      (this.saleItemsDisplay[index].ItemSellingDiscountValue /
         (this.saleItemsDisplay[index].ItemSubtotal + this.saleItemsDisplay[index].ItemSellingTaxesValue)) * 100;
 
     this.updateItemTotal(index);
   }
 
-  updateItemTotal(index : number){
-    this.saleItemsDisplay[index].ItemTotal = 
+  updateItemTotal(index: number) {
+    this.saleItemsDisplay[index].ItemTotal =
       (this.saleItemsDisplay[index].ItemSubtotal + this.saleItemsDisplay[index].ItemSellingTaxesValue)
-        - this.saleItemsDisplay[index].ItemSellingDiscountValue;
+      - this.saleItemsDisplay[index].ItemSellingDiscountValue;
   }
 
-  updateSaleSubtotal(){
+  updateSaleSubtotal() {
     this.saleItemsDisplay.forEach(element => {
       this.sellingTransactionMaster.Subtotal += element.ItemSubtotal
     });
   }
 
-  calculateSaleTaxesValue(){
-    // this.saleItemsDisplay.forEach(element => {
-    //   this.sellingTransactionMaster.TaxesValue += element.ItemSellingTaxesValue
-   // });
+  updateCalculatedSaleTaxesValue() {
+    this.saleItemsDisplay.forEach(element => {
+      this.sellingTransactionMaster.CalculatedTaxesValue += element.ItemSellingTaxesValue
+    });
   }
 
-  updateSaleTaxesPercentage(){
-    // this.sellingTransactionMaster.TaxesPercentage = 
-    //   (this.sellingTransactionMaster.TaxesValue / this.sellingTransactionMaster.Subtotal)
-    //     * 100;
+  updateCalculatedSaleTaxesPercentage() {
+    (this.sellingTransactionMaster.CalculatedTaxesValue /
+      this.sellingTransactionMaster.Subtotal) * 100;
   }
 
-  //Called when the user changes Sale TaxesPercentage manually
-  updateSaleTaxesValue(){
-    // this.sellingTransactionMaster.TaxesValue = 
-    // (this.sellingTransactionMaster.Subtotal * this.sellingTransactionMaster.TaxesPercentage)
-    //   / 100;
+  updateCalculatedSaleDiscountValue() {
+    this.saleItemsDisplay.forEach(element => {
+      this.sellingTransactionMaster.CalculatedDiscountValue += element.ItemSellingDiscountValue
+    });
   }
 
-  calculateSaleTotal(){
-    
+  updateCalculatedSaleDiscountPercentage() {
+    (this.sellingTransactionMaster.CalculatedDiscountValue /
+      (this.sellingTransactionMaster.Subtotal
+        + this.sellingTransactionMaster.CalculatedTaxesValue))
+      * 100;
+  }
+
+  //Called when the user changes TaxesPercentageOverInvoice manually
+  updateTaxesValueOverInvoice() {
+    this.sellingTransactionMaster.TaxesValueOverInvoice =
+      (this.sellingTransactionMaster.Subtotal
+        * this.sellingTransactionMaster.TaxesPercentageOverInvoice)
+          / 100;
+  }
+
+  //Called when the user changes TaxesValueOverInvoice manually
+  updateTaxesPercentageOverInvoice() {
+    this.sellingTransactionMaster.TaxesPercentageOverInvoice =
+      (this.sellingTransactionMaster.TaxesValueOverInvoice
+        / this.sellingTransactionMaster.Subtotal)
+          * 100;
+  }
+
+  //Called when the user changes DiscountValueOverInvoice manually
+  updateDiscountPercentageOverInvoice() {
+    this.sellingTransactionMaster.DiscountPercentageOverInvoice =
+      (this.sellingTransactionMaster.DiscountValueOverInvoice
+        / (this.sellingTransactionMaster.Subtotal
+          + this.sellingTransactionMaster.CalculatedTaxesValue
+            + this.sellingTransactionMaster.TaxesValueOverInvoice))
+              * 100;
+  }
+
+  updateDiscountValueOverInvoice() {
+    this.sellingTransactionMaster.DiscountValueOverInvoice =
+      (this.sellingTransactionMaster.DiscountPercentageOverInvoice
+        * (this.sellingTransactionMaster.Subtotal
+          + this.sellingTransactionMaster.CalculatedTaxesValue
+            + this.sellingTransactionMaster.TaxesValueOverInvoice))
+              / 100;
+  }
+
+
+  updateSaleTotal() {
+    this.sellingTransactionMaster.Total = 
+      this.sellingTransactionMaster.Subtotal 
+        + this.sellingTransactionMaster.CalculatedTaxesValue
+          + this.sellingTransactionMaster.TaxesValueOverInvoice 
+            - this.sellingTransactionMaster.CalculatedDiscountValue 
+              - this.sellingTransactionMaster.DiscountValueOverInvoice;
   }
 
   resetForm(form?: NgForm) {
@@ -207,20 +253,20 @@ export class SellingInvoiceComponent implements OnInit {
       SellingTransactionTypeId: 1,
       TransactionTiming: new Date(),
       Subtotal: 0,
-      calculatedTaxesPercentage : 0,
-      calculatedTaxesValue : 0,
-      calculatedDiscountPercentage : 0,
-      calculatedDiscountValue : 0,
-      TaxesPercentageOverInvoice : 0,
-      TaxesValueOverInvoice : 0,
-      DiscountPercentageOverInvoice : 0,
-      DiscountValueOverInvoice : 0,
+      CalculatedTaxesPercentage: 0,
+      CalculatedTaxesValue: 0,
+      CalculatedDiscountPercentage: 0,
+      CalculatedDiscountValue: 0,
+      TaxesPercentageOverInvoice: 0,
+      TaxesValueOverInvoice: 0,
+      DiscountPercentageOverInvoice: 0,
+      DiscountValueOverInvoice: 0,
       Total: 0,
       SellerId: this.salesMan.Id,
-      ShiftOwnerId : this.shiftOwner.Id,
-      CustomerId : 1,
+      ShiftOwnerId: this.shiftOwner.Id,
+      CustomerId: 1,
       NumberOfItems: 0,
-      NumberOfPieces: 0    	
+      NumberOfPieces: 0
     }
   }
 }
