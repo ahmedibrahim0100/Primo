@@ -29,14 +29,30 @@ import { AssignUserComponent } from 'src/app/Authentication/Components/assign-us
 })
 export class SellingInvoiceComponent implements OnInit {
 
-  selectedItems?: ItemModel[];
-  sellingTransactionMaster: SellingTransactionMasterData;
-  saleItems: SaleItem[];
-  saleItemsDisplay: SaleItemDisplay[];
-  saleCustomer: Customer;
-  sellingTransactionTypes: SellingTransactionType[];
-  salesMan: User;
-  shiftOwner: User;
+//#region MemberVariables
+  selectedItems? : ItemModel[];
+  saleItems : SaleItem[];
+  saleItemsDisplay : SaleItemDisplay[];
+  sellingTransactionTypes : SellingTransactionType[];
+
+  sellingTransactionMaster : SellingTransactionMasterData;
+  saleTypeId : number;
+  saleSubtotal : number;
+  saleCalculatedTaxesPercentage: number;
+  saleCalculatedTaxesValue : number;
+  saleCalculatedDiscountPercentage: number;
+  saleCalculatedDiscountValue : number; 
+  TaxesPercentageOverInvoice : number;
+  TaxesValueOverInvoice : number;
+  DiscountPercentageOverInvoice : number;
+  DiscountValueOverInvoice : number;
+  saleTotal : number;
+  saleCustomer : Customer;
+  salesMan : User;
+  shiftOwner : User;
+  saleNumberOfItems : number;
+  saleNumberOfPieces : number;
+//#endregion
 
   constructor(
     private dialog: MatDialog,
@@ -116,19 +132,17 @@ export class SellingInvoiceComponent implements OnInit {
         console.log(this.salesMan.Name);
       });
   }
-
-  updateSubtotal(index: number) {
+//#region CalculationsFunctions
+  updateItemSubtotal(index: number) {
     this.saleItemsDisplay[index].ItemSubtotal =
       this.saleItemsDisplay[index].SellingTransactionItemQuantity * this.saleItemsDisplay[index].ItemSellingPrice;
-
-    this.updateItemSellingTaxesValue(index);
   }
 
   updateItemSellingTaxesValue(index: number) {
     this.saleItemsDisplay[index].ItemSellingTaxesValue =
       (this.saleItemsDisplay[index].ItemSubtotal * this.saleItemsDisplay[index].ItemSellingTaxesPercentage) / 100;
 
-    this.updateItemSellingDiscountValue(index);
+    
   }
 
   updateItemSellingTaxesPercentage(index: number) {
@@ -143,15 +157,13 @@ export class SellingInvoiceComponent implements OnInit {
       ((this.saleItemsDisplay[index].ItemSubtotal + this.saleItemsDisplay[index].ItemSellingTaxesValue)
         * this.saleItemsDisplay[index].ItemSellingDiscountPercentage) / 100;
 
-    this.updateItemTotal(index);
+    
   }
 
   updateItemSellingDiscountPercentage(index: number) {
     this.saleItemsDisplay[index].ItemSellingDiscountPercentage =
       (this.saleItemsDisplay[index].ItemSellingDiscountValue /
         (this.saleItemsDisplay[index].ItemSubtotal + this.saleItemsDisplay[index].ItemSellingTaxesValue)) * 100;
-
-    this.updateItemTotal(index);
   }
 
   updateItemTotal(index: number) {
@@ -234,21 +246,39 @@ export class SellingInvoiceComponent implements OnInit {
             - this.sellingTransactionMaster.CalculatedDiscountValue 
               - this.sellingTransactionMaster.DiscountValueOverInvoice;
   }
+//#endregion
 
   resetForm(form?: NgForm) {
     if (form = null)
       form.resetForm();
-    this.saleItemsDisplay = [];
-    this.saleItems = [];
+    this.sellingTransactionMaster = new SellingTransactionMasterData();
+    this.saleTypeId = 1;
+    this.saleSubtotal = 0;
+    this.saleCalculatedTaxesPercentage = 0;
+    this.saleCalculatedTaxesValue = 0;
+    this.saleCalculatedDiscountPercentage = 0;
+    this.saleCalculatedDiscountValue = 0;
+    this.TaxesPercentageOverInvoice = 0;
+    this.TaxesValueOverInvoice = 0;
+    this.DiscountPercentageOverInvoice = 0;
+    this.DiscountValueOverInvoice = 0;
+    this.saleTotal = 0;
+    this.salesMan = this.userService.loggedInUser;
+    this.shiftOwner = this.userService.loggedInUser;
     this.saleCustomer = new Customer();
     this.saleCustomer.CustomerId = 1;
-    this.saleCustomer.CustomerName = 'Anonymous';
+    this.saleCustomer.CustomerName = 'Anonymous'; 
+    this.saleNumberOfItems = 0;
+    this.saleNumberOfPieces = 0;
+    this.saleItemsDisplay = [];
+    this.saleItems = [];
+    
     this.sellingTransactionsService.getAllSellingTransactionTypes()
       .then(res => this.sellingTransactionTypes = res as SellingTransactionType[]);
-    this.shiftOwner = this.userService.loggedInUser;
-    this.salesMan = this.userService.loggedInUser;
+    
+    
 
-    this.sellingTransactionMaster = {
+    /*this.sellingTransactionMaster = {
       TransactionId: null,
       SellingTransactionTypeId: 1,
       TransactionTiming: new Date(),
@@ -262,11 +292,40 @@ export class SellingInvoiceComponent implements OnInit {
       DiscountPercentageOverInvoice: 0,
       DiscountValueOverInvoice: 0,
       Total: 0,
-      SellerId: this.salesMan.Id,
-      ShiftOwnerId: this.shiftOwner.Id,
+      SellerId : this.salesMan.Id,
+      ShiftOwnerId : this.shiftOwner.Id,
       CustomerId: 1,
       NumberOfItems: 0,
       NumberOfPieces: 0
-    }
+    }*/
+  }
+
+  onChangeItemQuantity(index : number){
+    this.updateItemSubtotal(index);
+    this.updateItemSellingTaxesValue(index);
+    this.updateItemSellingDiscountValue(index);
+    this.updateItemTotal(index);
+  }
+
+  onChangeItemSellingTaxesPercentage(index : number){
+    this.updateItemSellingTaxesValue(index);
+    this.updateItemSellingDiscountValue(index);
+    this.updateItemTotal(index);
+  }
+
+  onChangeItemSellingTaxesValue(index : number){
+    this.updateItemSellingTaxesPercentage(index);
+    this.updateItemSellingDiscountValue(index);
+    this.updateItemTotal(index);
+  }
+
+  onChangeItemSellingDiscountPercentage(index : number){
+    this.updateItemSellingDiscountValue(index);
+    this.updateItemTotal(index);
+  }
+
+  onChangeItemSellingDiscountValue(index : number){
+    this.updateItemSellingDiscountPercentage(index);
+    this.updateItemTotal(index);
   }
 }

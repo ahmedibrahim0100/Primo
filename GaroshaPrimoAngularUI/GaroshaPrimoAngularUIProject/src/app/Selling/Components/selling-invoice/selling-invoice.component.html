@@ -1,8 +1,5 @@
 <form #sellingInvoiceForm="ngForm" autocomplete="off" class="mt-1 ml-1 mr-1">
-    <input name="TransactionId" type="hidden" #TransactionId="ngModel"
-        [(ngModel)]="sellingTransactionMaster.TransactionId">
-    <input name="TransactionTiming" type="hidden" #TransactionTiming="ngModel"
-        [(ngModel)]="sellingTransactionMaster.TransactionTiming">
+    
     <div class="row">
         <div class="col-sm-2">
             <div class="form-group">
@@ -37,11 +34,7 @@
                         <input name="ShiftOwnerName" #ShiftOwnerName="ngModel" [(ngModel)]="shiftOwner.Name" type="text"
                             class="form-control" readonly>
                     </div>
-                </div>
-                <input name="SellerId" #SellerId="ngModel" type="hidden"
-                    [(ngModel)]="sellingTransactionMaster.SellerId">
-                <input name="ShiftOwnerId" #ShiftOwnerId="ngModel" type="hidden"
-                    [(ngModel)]="sellingTransactionMaster.ShiftOwnerId">
+                </div>             
             </div>
         </div>
         <div class="col-sm-4">
@@ -57,8 +50,6 @@
                 <div class="col-sm-6">
                     <br>
                     <label>{{ saleCustomer.CustomerName }}</label>
-                    <input name="CustomerId" #CustomerId="ngModel" type="hidden"
-                        [(ngModel)]="sellingTransactionMaster.CustomerId" class="form-control">
                 </div>
             </div>
         </div>
@@ -96,7 +87,7 @@
                     <td>
                         <input type="number" name="SaleItemDisplayQuantity" #SaleItemDisplayQuantity="ngModel"
                             [(ngModel)]="saleItemsDisplay[i].SellingTransactionItemQuantity"
-                            (change)="updateSubtotal(i)" class="w-75">
+                            (change)="onChangeItemQuantity(i)" class="w-75">
                     </td>
                     <td>{{ item.ItemSellingPrice }}</td>
                     <td>{{ item.Stock }}</td>
@@ -105,25 +96,25 @@
                         <input type="number" name="SaleItemDisplaySellingTaxesPercentage"
                             #SaleItemDisplaySellingTaxesPercentage="ngModel"
                             [(ngModel)]="saleItemsDisplay[i].ItemSellingTaxesPercentage"
-                            (change)="updateItemSellingTaxesValue(i)" class="w-75">
+                            (change)="onChangeItemSellingTaxesPercentage(i)" class="w-75">
                     </td>
                     <td>
                         <input type="number" name="SaleItemDisplaySellingTaxesValue"
                             #SaleItemDisplaySellingTaxesValue="ngModel"
                             [(ngModel)]="saleItemsDisplay[i].ItemSellingTaxesValue"
-                            (change)="updateItemSellingTaxesPercentage(i)" class="w-75">
+                            (change)="onChangeItemSellingTaxesValue(i)" class="w-75">
                     </td>
                     <td>
                         <input type="number" name="SaleItemDisplaySellingDiscountPercentage"
                             #SaleItemDisplaySellingDiscountPercentage="ngModel"
                             [(ngModel)]="saleItemsDisplay[i].ItemSellingDiscountPercentage"
-                            (change)="updateItemSellingDiscountValue(i)" class="w-75">
+                            (change)="onChangeItemSellingDiscountPercentage(i)" class="w-75">
                     </td>
                     <td>
                         <input type="number" name="SaleItemDisplaySellingDiscountValue"
                             #SaleItemDisplaySellingDiscountValue="ngModel"
                             [(ngModel)]="saleItemsDisplay[i].ItemSellingDiscountValue"
-                            (change)="updateItemSellingDiscountPercentage(i)" class="w-75">
+                            (change)="onChangeItemSellingDiscountValue(i)" class="w-75">
                     </td>
                     <td>{{ item.ItemTotal }}</td>
                 </tr>
@@ -133,43 +124,81 @@
     
 
     <div class="fixed-bottom">
+        <div>
+            <table class="table" style="table-layout: fixed;">
+                <tr>
+                    <td>
+                        Overall Taxes %
+                    </td>
+                    <td>
+                        <input name="TaxesPercentage_OverInvoice" #TaxesPercentage_OverInvoice="ngModel" type="number" 
+                        [(ngModel)]="TaxesPercentageOverInvoice"
+                        class="form-control">
+                    </td>
+                    <td>
+                        Overall Taxes
+                    </td>
+                    <td>
+                        <input name="TaxesValue_OverInvoice" #TaxesPercentage_OverInvoice="ngModel" type="number" 
+                        [(ngModel)]="TaxesValueOverInvoice"
+                        class="form-control">
+                    </td>
+                    <td>
+                        Overall Discount %
+                    </td>
+                    <td>
+                        <input name="DiscountPercentage_OverInvoice" #TaxesPercentage_OverInvoice="ngModel" type="number" 
+                        [(ngModel)]="DiscountPercentageOverInvoice"
+                        class="form-control">
+                    </td>
+                    <td>
+                        Overall Discount
+                    </td>
+                    <td>
+                        <input name="DiscountValue_OverInvoice" #TaxesPercentage_OverInvoice="ngModel" type="number" 
+                        [(ngModel)]="DiscountValueOverInvoice"
+                        class="form-control">
+                    </td>
+                </tr>
+            </table>
+        </div>
         <div class="row">
             <div class="col-sm-2">
                 <div class="form-group">
                     <label>Subtotal</label>
                     <input name="Subtotal" #Subtotal="ngModel" type="text"
-                        [(ngModel)]="sellingTransactionMaster.Subtotal" class="form-control" readonly>
+                        [(ngModel)]="saleSubtotal" class="form-control" readonly>
                 </div>
             </div>
             <div class="col-sm-1">
                 <div class="form-group">
-                    <label>Taxes %</label>
+                    <label>Items Taxes %</label>
                     <input name="CalculatedTaxesPercentage" #TaxesPercentage="ngModel" type="number" 
-                        [(ngModel)]="sellingTransactionMaster.CalculatedTaxesPercentage"
+                        [(ngModel)]="saleCalculatedTaxesPercentage"
                         class="form-control" readonly>
                 </div>
             </div>
             <div class="col-sm-1">
                 <div class="form-group">
-                    <label>Taxes</label>
+                    <label>Items Taxes</label>
                     <input name="CalculatedTaxesValue" #TaxesValue="ngModel" type="number" 
-                        [(ngModel)]="sellingTransactionMaster.CalculatedTaxesValue"
+                        [(ngModel)]="saleCalculatedTaxesValue"
                         class="form-control" readonly>
                 </div>
             </div>
             <div class="col-sm-1">
                 <div class="form-group">
-                    <label>Discount %</label>
+                    <label>Items Discount %</label>
                     <input name="CalculatedDiscountPercentage" #DiscountPercentage="ngModel" type="number" 
-                        [(ngModel)]="sellingTransactionMaster.CalculatedDiscountPercentage"
+                        [(ngModel)]="saleCalculatedDiscountPercentage"
                         class="form-control" readonly>
                 </div>
             </div>
             <div class="col-sm-1">
                 <div class="form-group">
-                    <label>Discount</label>
+                    <label>Items Discount</label>
                     <input name="CalculatedDiscountValue" #DiscountValue="ngModel" type="number" 
-                        [(ngModel)]="sellingTransactionMaster.CalculatedDiscountValue"
+                        [(ngModel)]="saleCalculatedDiscountValue"
                         class="form-control" readonly>
                 </div>
             </div>
@@ -177,7 +206,7 @@
                 <div class="form-group">
                     <label>Total</label>
                     <input name="Total" #Total="ngModel" type="text" 
-                        [(ngModel)]="sellingTransactionMaster.Total"
+                        [(ngModel)]="saleTotal"
                         class="form-control" readonly>
                 </div>
             </div>
@@ -194,7 +223,7 @@
                     <label>NumberOfItems: </label>
 
                     <input name="NumberOfItems" #NumberOfItems="ngModel" type="number"
-                        [(ngModel)]="sellingTransactionMaster.NumberOfItems" class="form-control">
+                        [(ngModel)]="saleNumberOfItems" class="form-control">
                     <!-- <label name="NumberOfItems" #NumberOfItems="ngModel" class="ml-1"
                         [(ngModel)]="sellingTransactionMaster.NumberOfItems">0</label> -->
                 </div>
@@ -203,7 +232,7 @@
                 <div class="form-group">
                     <label>NumberOfPieces: </label>
                     <input name="NumberOfPieces" #NumberOfPieces="ngModel" type="number"
-                        [(ngModel)]="sellingTransactionMaster.NumberOfPieces" class="form-control">
+                        [(ngModel)]="saleNumberOfPieces" class="form-control">
                     <!-- <label name="NumberOfPieces" #NumberOfPieces="ngModel" class="ml-1"
                         [(ngModel)]="sellingTransactionMaster.NumberOfPieces">0</label> -->
                 </div>
@@ -212,5 +241,17 @@
 
 
     </div>
+
+    <!-- <input name="TransactionId" type="hidden" #TransactionId="ngModel"
+        [(ngModel)]="sellingTransactionMaster.TransactionId">
+    <input name="TransactionTiming" type="hidden" #TransactionTiming="ngModel"
+        [(ngModel)]="sellingTransactionMaster.TransactionTiming"> -->
+
+        <!-- <input name="SellerId" #SellerId="ngModel" type="hidden"
+                    [(ngModel)]="sellingTransactionMaster.SellerId">
+                <input name="ShiftOwnerId" #ShiftOwnerId="ngModel" type="hidden"
+                    [(ngModel)]="sellingTransactionMaster.ShiftOwnerId"> -->
+                    <!-- <input name="CustomerId" #CustomerId="ngModel" type="hidden"
+                    [(ngModel)]="sellingTransactionMaster.CustomerId" class="form-control"> -->
 
 </form>
