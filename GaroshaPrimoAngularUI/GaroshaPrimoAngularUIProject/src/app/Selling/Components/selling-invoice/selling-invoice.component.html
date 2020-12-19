@@ -1,11 +1,11 @@
 <form #sellingInvoiceForm="ngForm" autocomplete="off" class="mt-1 ml-1 mr-1">
-    
+
     <div class="row">
         <div class="col-sm-2">
             <div class="form-group">
                 <label>Transaction Type</label>
-                <select name="SellingTransactionTypeId" #SellingTransactionTypeId="ngModel"
-                    [(ngModel)]="sellingTransactionMaster.SellingTransactionTypeId" class="form-control">
+                <select name="SellingTransactionTypeId" #SellingTransactionTypeId="ngModel" [(ngModel)]="saleTypeId"
+                    class="form-control">
                     <!-- <option value="">- Select -</option> -->
                     <option *ngFor="let type of sellingTransactionTypes" value="type.Id">
                         {{ type.SellingTransactionType }}</option>
@@ -34,7 +34,7 @@
                         <input name="ShiftOwnerName" #ShiftOwnerName="ngModel" [(ngModel)]="shiftOwner.Name" type="text"
                             class="form-control" readonly>
                     </div>
-                </div>             
+                </div>
             </div>
         </div>
         <div class="col-sm-4">
@@ -64,157 +64,150 @@
         <div class="col-md-4"></div>
         <div class="col-md-4"></div>
     </div>
-    
-        <table class="table table-hover table-striped table-bordered mt-2" 
-            style="table-layout: fixed;">
-            <thead class="thead-light">
-                <th>ItemName</th>
-                <th>ExpiryDate</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th>Subtotal</th>
-                <th>Taxes %</th>
-                <th>Taxes</th>
-                <th>Discount %</th>
-                <th>Discount</th>
-                <th>Total</th>
-            </thead>
-            <tbody>
-                <tr *ngFor="let item of saleItemsDisplay; let i = index;">
-                    <td>{{ item.ItemNameEnglish }}</td>
-                    <td>{{ item.ItemExpiryDate }}</td>
-                    <td>
-                        <input type="number" name="SaleItemDisplayQuantity" #SaleItemDisplayQuantity="ngModel"
-                            [(ngModel)]="saleItemsDisplay[i].SellingTransactionItemQuantity"
-                            (change)="onChangeItemQuantity(i)" class="w-75">
-                    </td>
-                    <td>{{ item.ItemSellingPrice }}</td>
-                    <td>{{ item.Stock }}</td>
-                    <td>{{ item.ItemSubtotal }}</td>
-                    <td>
-                        <input type="number" name="SaleItemDisplaySellingTaxesPercentage"
-                            #SaleItemDisplaySellingTaxesPercentage="ngModel"
-                            [(ngModel)]="saleItemsDisplay[i].ItemSellingTaxesPercentage"
-                            (change)="onChangeItemSellingTaxesPercentage(i)" class="w-75">
-                    </td>
-                    <td>
-                        <input type="number" name="SaleItemDisplaySellingTaxesValue"
-                            #SaleItemDisplaySellingTaxesValue="ngModel"
-                            [(ngModel)]="saleItemsDisplay[i].ItemSellingTaxesValue"
-                            (change)="onChangeItemSellingTaxesValue(i)" class="w-75">
-                    </td>
-                    <td>
-                        <input type="number" name="SaleItemDisplaySellingDiscountPercentage"
-                            #SaleItemDisplaySellingDiscountPercentage="ngModel"
-                            [(ngModel)]="saleItemsDisplay[i].ItemSellingDiscountPercentage"
-                            (change)="onChangeItemSellingDiscountPercentage(i)" class="w-75">
-                    </td>
-                    <td>
-                        <input type="number" name="SaleItemDisplaySellingDiscountValue"
-                            #SaleItemDisplaySellingDiscountValue="ngModel"
-                            [(ngModel)]="saleItemsDisplay[i].ItemSellingDiscountValue"
-                            (change)="onChangeItemSellingDiscountValue(i)" class="w-75">
-                    </td>
-                    <td>{{ item.ItemTotal }}</td>
-                </tr>
-            </tbody>
-        </table>
-    
-    
+
+    <table class="table table-hover table-striped table-bordered mt-2" style="table-layout: fixed;">
+        <thead class="thead-light">
+            <th>ItemName</th>
+            <th>ExpiryDate</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Subtotal</th>
+            <th>Taxes %</th>
+            <th>Taxes</th>
+            <th>Discount %</th>
+            <th>Discount</th>
+            <th>Total</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of saleItemsDisplay; let i = index;">
+                <td>{{ item.ItemNameEnglish }}</td>
+                <td>{{ item.ItemExpiryDate }}</td>
+                <td>
+                    <input type="number" name="SaleItemDisplayQuantity" #SaleItemDisplayQuantity="ngModel"
+                        [(ngModel)]="saleItemsDisplay[i].SellingTransactionItemQuantity"
+                        (change)="onChangeItemQuantity(i)" class="w-75">
+                </td>
+                <td>{{ item.ItemSellingPrice }}</td>
+                <td>{{ item.Stock }}</td>
+                <td>{{ item.ItemSubtotal }}</td>
+                <td>
+                    <input type="number" name="SaleItemDisplaySellingTaxesPercentage"
+                        #SaleItemDisplaySellingTaxesPercentage="ngModel"
+                        [(ngModel)]="saleItemsDisplay[i].ItemSellingTaxesPercentage"
+                        (change)="onChangeItemSellingTaxesPercentage(i)" class="w-75">
+                </td>
+                <td>
+                    <input type="number" name="SaleItemDisplaySellingTaxesValue"
+                        #SaleItemDisplaySellingTaxesValue="ngModel"
+                        [(ngModel)]="saleItemsDisplay[i].ItemSellingTaxesValue"
+                        (change)="onChangeItemSellingTaxesValue(i)" class="w-75">
+                </td>
+                <td>
+                    <input type="number" name="SaleItemDisplaySellingDiscountPercentage"
+                        #SaleItemDisplaySellingDiscountPercentage="ngModel"
+                        [(ngModel)]="saleItemsDisplay[i].ItemSellingDiscountPercentage"
+                        (change)="onChangeItemSellingDiscountPercentage(i)" class="w-75">
+                </td>
+                <td>
+                    <input type="number" name="SaleItemDisplaySellingDiscountValue"
+                        #SaleItemDisplaySellingDiscountValue="ngModel"
+                        [(ngModel)]="saleItemsDisplay[i].ItemSellingDiscountValue"
+                        (change)="onChangeItemSellingDiscountValue(i)" class="w-75">
+                </td>
+                <td>{{ item.ItemTotal }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
 
     <div class="fixed-bottom">
         <div>
             <table class="table" style="table-layout: fixed;">
+               <thead>
+                   <th>Overall Taxes %</th>
+                   <th>Overall Taxes</th>
+                   <th>Overall Discount %</th>
+                   <th>Overall Discount</th>
+                   <th>Subtotal</th>
+                   <th>Items Taxes %</th>
+                   <th>Items Taxes</th>
+                   <th>Items Discount %</th>
+                   <th>Items Discount</th>
+                   <th>Total</th>
+                   <th></th>
+               </thead>
                 <tr>
-                    <td>
-                        Overall Taxes %
+                    <td>       
+                            <input name="TaxesPercentage_OverInvoice" #TaxesPercentage_OverInvoice="ngModel"
+                                type="number" [(ngModel)]="TaxesPercentageOverInvoice" class="form-control">    
+                    </td>
+                    <td>                      
+                            <input name="TaxesValue_OverInvoice" #TaxesPercentage_OverInvoice="ngModel" type="number"
+                                [(ngModel)]="TaxesValueOverInvoice" class="form-control">                       
                     </td>
                     <td>
-                        <input name="TaxesPercentage_OverInvoice" #TaxesPercentage_OverInvoice="ngModel" type="number" 
-                        [(ngModel)]="TaxesPercentageOverInvoice"
-                        class="form-control">
+                            <input name="DiscountPercentage_OverInvoice" #TaxesPercentage_OverInvoice="ngModel"
+                                type="number" [(ngModel)]="DiscountPercentageOverInvoice" class="form-control">
                     </td>
                     <td>
-                        Overall Taxes
+                            <input name="DiscountValue_OverInvoice" #TaxesPercentage_OverInvoice="ngModel" type="number"
+                                [(ngModel)]="DiscountValueOverInvoice" class="form-control">
                     </td>
                     <td>
-                        <input name="TaxesValue_OverInvoice" #TaxesPercentage_OverInvoice="ngModel" type="number" 
-                        [(ngModel)]="TaxesValueOverInvoice"
-                        class="form-control">
+                            <input name="Subtotal" #Subtotal="ngModel" type="text" [(ngModel)]="saleSubtotal"
+                                class="form-control" readonly>
                     </td>
                     <td>
-                        Overall Discount %
+                            <input name="CalculatedTaxesPercentage" #TaxesPercentage="ngModel" type="number"
+                                [(ngModel)]="saleCalculatedTaxesPercentage" class="form-control" readonly>
                     </td>
                     <td>
-                        <input name="DiscountPercentage_OverInvoice" #TaxesPercentage_OverInvoice="ngModel" type="number" 
-                        [(ngModel)]="DiscountPercentageOverInvoice"
-                        class="form-control">
+                            <input name="CalculatedTaxesValue" #TaxesValue="ngModel" type="number"
+                                [(ngModel)]="saleCalculatedTaxesValue" class="form-control" readonly>
                     </td>
                     <td>
-                        Overall Discount
+                            <input name="CalculatedDiscountPercentage" #DiscountPercentage="ngModel" type="number"
+                                [(ngModel)]="saleCalculatedDiscountPercentage" class="form-control" readonly>
                     </td>
                     <td>
-                        <input name="DiscountValue_OverInvoice" #TaxesPercentage_OverInvoice="ngModel" type="number" 
-                        [(ngModel)]="DiscountValueOverInvoice"
-                        class="form-control">
+                            <input name="CalculatedDiscountValue" #DiscountValue="ngModel" type="number"
+                                [(ngModel)]="saleCalculatedDiscountValue" class="form-control" readonly>
+                    </td>
+                    <td>
+                            <input name="Total" #Total="ngModel" type="text" [(ngModel)]="saleTotal"
+                                class="form-control" readonly>
+                    </td>
+                    <td>
+                            <button type="submit" class="btn btn-primary">
+                                Submit
+                            </button>
                     </td>
                 </tr>
             </table>
         </div>
+
         <div class="row">
             <div class="col-sm-2">
-                <div class="form-group">
-                    <label>Subtotal</label>
-                    <input name="Subtotal" #Subtotal="ngModel" type="text"
-                        [(ngModel)]="saleSubtotal" class="form-control" readonly>
-                </div>
+
             </div>
             <div class="col-sm-1">
-                <div class="form-group">
-                    <label>Items Taxes %</label>
-                    <input name="CalculatedTaxesPercentage" #TaxesPercentage="ngModel" type="number" 
-                        [(ngModel)]="saleCalculatedTaxesPercentage"
-                        class="form-control" readonly>
-                </div>
+
             </div>
             <div class="col-sm-1">
-                <div class="form-group">
-                    <label>Items Taxes</label>
-                    <input name="CalculatedTaxesValue" #TaxesValue="ngModel" type="number" 
-                        [(ngModel)]="saleCalculatedTaxesValue"
-                        class="form-control" readonly>
-                </div>
+
             </div>
             <div class="col-sm-1">
-                <div class="form-group">
-                    <label>Items Discount %</label>
-                    <input name="CalculatedDiscountPercentage" #DiscountPercentage="ngModel" type="number" 
-                        [(ngModel)]="saleCalculatedDiscountPercentage"
-                        class="form-control" readonly>
-                </div>
+
             </div>
             <div class="col-sm-1">
-                <div class="form-group">
-                    <label>Items Discount</label>
-                    <input name="CalculatedDiscountValue" #DiscountValue="ngModel" type="number" 
-                        [(ngModel)]="saleCalculatedDiscountValue"
-                        class="form-control" readonly>
-                </div>
+
             </div>
             <div class="col-sm-3">
-                <div class="form-group">
-                    <label>Total</label>
-                    <input name="Total" #Total="ngModel" type="text" 
-                        [(ngModel)]="saleTotal"
-                        class="form-control" readonly>
-                </div>
+
             </div>
-            <div class="col-sm-3 form-group">
-                <button type="submit" class="btn btn-primary">
-                    Submit
-                </button>
-            </div>
+
         </div>
 
         <div class="row" style="bottom: 0; background-color: olive; color: whitesmoke; height: 20px;">
@@ -222,8 +215,8 @@
                 <div class="form-group">
                     <label>NumberOfItems: </label>
 
-                    <input name="NumberOfItems" #NumberOfItems="ngModel" type="number"
-                        [(ngModel)]="saleNumberOfItems" class="form-control">
+                    <input name="NumberOfItems" #NumberOfItems="ngModel" type="number" [(ngModel)]="saleNumberOfItems"
+                        class="form-control">
                     <!-- <label name="NumberOfItems" #NumberOfItems="ngModel" class="ml-1"
                         [(ngModel)]="sellingTransactionMaster.NumberOfItems">0</label> -->
                 </div>
@@ -247,11 +240,11 @@
     <input name="TransactionTiming" type="hidden" #TransactionTiming="ngModel"
         [(ngModel)]="sellingTransactionMaster.TransactionTiming"> -->
 
-        <!-- <input name="SellerId" #SellerId="ngModel" type="hidden"
+    <!-- <input name="SellerId" #SellerId="ngModel" type="hidden"
                     [(ngModel)]="sellingTransactionMaster.SellerId">
                 <input name="ShiftOwnerId" #ShiftOwnerId="ngModel" type="hidden"
                     [(ngModel)]="sellingTransactionMaster.ShiftOwnerId"> -->
-                    <!-- <input name="CustomerId" #CustomerId="ngModel" type="hidden"
+    <!-- <input name="CustomerId" #CustomerId="ngModel" type="hidden"
                     [(ngModel)]="sellingTransactionMaster.CustomerId" class="form-control"> -->
 
 </form>
