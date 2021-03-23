@@ -29,7 +29,7 @@ import { AssignUserComponent } from 'src/app/Authentication/Components/assign-us
 })
 export class SellingInvoiceComponent implements OnInit {
 
-//#region MemberVariables
+//#region Member Variables
   selectedItems? : ItemModel[];
   saleItems : SaleItem[];
   saleItemsDisplay : SaleItemDisplay[];
