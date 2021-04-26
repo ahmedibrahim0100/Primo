@@ -24,6 +24,7 @@ import { ItemsBrowserComponent } from './Items/Components/items-browser/items-br
 import { CustomersSelectorComponent } from './Customers/Components/customers-selector/customers-selector.component';
 import { CustomersBrowserComponent } from './Customers/Components/customers-browser/customers-browser.component';
 import { AssignUserComponent } from './Authentication/Components/assign-user/assign-user.component';
+import { InvoicePaymentComponent } from './Selling/Components/invoice-payment/invoice-payment.component';
 
 
 
@@ -41,7 +42,8 @@ import { AssignUserComponent } from './Authentication/Components/assign-user/ass
     ItemsBrowserComponent,
     CustomersSelectorComponent,
     CustomersBrowserComponent,
-    AssignUserComponent
+    AssignUserComponent,
+    InvoicePaymentComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +62,8 @@ import { AssignUserComponent } from './Authentication/Components/assign-user/ass
   entryComponents: [
     ItemsBrowserComponent,
     CustomersBrowserComponent,
-    AssignUserComponent
+    AssignUserComponent,
+    InvoicePaymentComponent
   ],
   bootstrap: [AppComponent]
 })

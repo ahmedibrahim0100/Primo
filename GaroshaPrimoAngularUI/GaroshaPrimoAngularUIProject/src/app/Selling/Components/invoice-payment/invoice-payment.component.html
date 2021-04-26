@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-md-8">
+        <div class="mb-4">
+            <h5>Cash</h5>
+            <label for="cash">Amount</label>
+            <input type="number" name="cash" #cash="ngModel" [(ngModel)]="cashAmount"
+            (change)="processCalculations()">    
+        </div>
+
+        <div class="mb-4">
+            <h5>Bank Card</h5>
+            <div class="mb-2">
+                <label for="card">Amount</label>
+                <input type="number" name="card" #card="ngModel" [(ngModel)]="cardAmount"
+                (change)="processCalculations()">
+            </div>
+            <div class="mb-2">
+                <label for="bankCardNumber">Card Number</label>
+                <input type="text" name="bankCardNumber" #bankCardNumber="ngModel" [(ngModel)]="cardNumber">
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <h5>Contractor</h5>
+            <div class="mb-2">
+                <label for="contractor">Amount</label>
+                <input type="number" name="contractor" #contractor="ngModel" [(ngModel)]="contractorAmount"
+                (change)="processCalculations()">    
+            </div>
+            <div class="mb-2">
+                <label for="contractorIdentity">Contractor</label>
+                <input type="text" name="contractorIdentity" #contractorIdentity="ngModel" [(ngModel)]="contractorName">    
+            </div>
+        </div>
+      
+        
+    </div>
+    <div class="col-md-4">
+
+        <div class="mb-2">
+            <label for="total">Total</label>
+            <input type="number" name="total" #total="ngModel" [(ngModel)]="totalAmount" readonly>
+        </div>  
+
+        <div class="mb-2">
+            <label for="payment">Payment</label>
+            <input type="number" name="payment" #payment="ngModel" [(ngModel)]="paymentAmount" readonly>
+        </div>
+
+        <div class="mb-2">
+            <label for="shouldPayAmount">Still Should Pay</label>
+            <input type="text" name="shouldPayAmount" #shouldPayAmount="ngModel" [(ngModel)]="stillShouldPayAmount" readonly>
+        </div>
+
+        <div class="mb-2">
+            <label for="returnBack">Return To Client</label>
+            <input type="text" name="returnBack" #returnBack="ngModel" [(ngModel)]="_returnToCustomer" readonly>
+        </div>
+
+        <div>
+            <button class="btn btn-primary" [disabled]="!isProcessValid" (click)="processInvoice()">Process</button>
+            <button type="button" class="btn btn-danger ml-3" [mat-dialog-close]>
+                Close
+            </button>
+        </div>
+    </div>
+</div>

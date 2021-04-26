@@ -20,5 +20,14 @@ namespace PrimoDataManager.Controllers
             SellingTransactionData data = new SellingTransactionData();
             return data.GetAllSellingTransactionTypes();
         }
+
+
+        [HttpPost]
+        [Route("PostSale")]
+        public void Post([FromBody]SellingTransactionModel saleInfo)
+        {
+            SellingTransactionData data = new SellingTransactionData();
+            data.SaveSale(saleInfo);
+        }
     }
 }

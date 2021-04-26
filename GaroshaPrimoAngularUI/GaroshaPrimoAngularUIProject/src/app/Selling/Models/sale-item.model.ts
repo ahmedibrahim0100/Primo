@@ -1,6 +1,6 @@
 export class SaleItem {
-    Id : number; 
-    SellingTransactionId : number; 
+    //Id : number; 
+    //SellingTransactionId : number; 
     ItemId : number; 
     ItemExpiryDate : Date; 
     SellingTransactionItemQuantity : number; 
@@ -12,4 +12,5 @@ export class SaleItem {
     ItemSellingTaxesValue : number; 
     ItemTotal : number; 
     ItemCostOnSelling : number;
+    ItemStock : number;
 }

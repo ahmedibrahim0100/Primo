@@ -1,7 +1,10 @@
+import { InvoicePayment } from "./invoice-payment.model";
+import { SaleItem } from "./sale-item.model";
+
 export class SellingTransactionMasterData {
-    TransactionId : number; 
+    //TransactionId : number; 
     SellingTransactionTypeId : number; 
-    TransactionTiming : Date; 
+    //TransactionTiming : Date; 
     Subtotal : number; 
     CalculatedTaxesPercentage : number;
     CalculatedTaxesValue : number; 
@@ -17,4 +20,6 @@ export class SellingTransactionMasterData {
     CustomerId : number; 
     NumberOfItems : number; 
     NumberOfPieces : number; 
+    InvoicePayment : InvoicePayment;
+    SaleItems : SaleItem[];
 }

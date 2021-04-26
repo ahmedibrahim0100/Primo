@@ -11,5 +11,7 @@ export class SaleItemDisplay {
 	ItemSellingTaxesPercentage : number;
     ItemSellingTaxesValue : number; 
     ItemTotal : number; 
+    ItemBuyingPrice : number;
+    TaxesValueOnBuying : number;
     ItemCostOnSelling : number;
 }

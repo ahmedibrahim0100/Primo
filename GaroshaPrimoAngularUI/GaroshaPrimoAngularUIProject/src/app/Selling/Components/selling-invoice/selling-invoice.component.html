@@ -125,64 +125,68 @@
     <div class="fixed-bottom">
         <div>
             <table class="table" style="table-layout: fixed;">
-               <thead>
-                   <th>Overall Taxes %</th>
-                   <th>Overall Taxes</th>
-                   <th>Overall Discount %</th>
-                   <th>Overall Discount</th>
-                   <th>Subtotal</th>
-                   <th>Items Taxes %</th>
-                   <th>Items Taxes</th>
-                   <th>Items Discount %</th>
-                   <th>Items Discount</th>
-                   <th>Total</th>
-                   <th></th>
-               </thead>
+                <thead>
+                    <th>Subtotal</th>
+                    <th>Items Taxes %</th>
+                    <th>Items Taxes</th>
+                    <th>Items Discount %</th>
+                    <th>Items Discount</th>
+                    <th>Other Taxes %</th>
+                    <th>Other Taxes</th>
+                    <th>Other Overall Discount %</th>
+                    <th>Other Overall Discount</th>
+                    <th>Total</th>
+                    <th></th>
+                </thead>
                 <tr>
-                    <td>       
-                            <input name="TaxesPercentage_OverInvoice" #TaxesPercentage_OverInvoice="ngModel"
-                                type="number" [(ngModel)]="TaxesPercentageOverInvoice" class="form-control">    
-                    </td>
-                    <td>                      
-                            <input name="TaxesValue_OverInvoice" #TaxesPercentage_OverInvoice="ngModel" type="number"
-                                [(ngModel)]="TaxesValueOverInvoice" class="form-control">                       
+                    <td>
+                        <input name="Subtotal" #Subtotal="ngModel" type="text" [(ngModel)]="saleSubtotal"
+                            class="form-control" readonly>
                     </td>
                     <td>
-                            <input name="DiscountPercentage_OverInvoice" #TaxesPercentage_OverInvoice="ngModel"
-                                type="number" [(ngModel)]="DiscountPercentageOverInvoice" class="form-control">
+                        <input name="CalculatedTaxesPercentage" #TaxesPercentage="ngModel" type="number"
+                            [(ngModel)]="saleCalculatedTaxesPercentage" class="form-control" readonly>
                     </td>
                     <td>
-                            <input name="DiscountValue_OverInvoice" #TaxesPercentage_OverInvoice="ngModel" type="number"
-                                [(ngModel)]="DiscountValueOverInvoice" class="form-control">
+                        <input name="CalculatedTaxesValue" #TaxesValue="ngModel" type="number"
+                            [(ngModel)]="saleCalculatedTaxesValue" class="form-control" readonly>
                     </td>
                     <td>
-                            <input name="Subtotal" #Subtotal="ngModel" type="text" [(ngModel)]="saleSubtotal"
-                                class="form-control" readonly>
+                        <input name="CalculatedDiscountPercentage" #DiscountPercentage="ngModel" type="number"
+                            [(ngModel)]="saleCalculatedDiscountPercentage" class="form-control" readonly>
                     </td>
                     <td>
-                            <input name="CalculatedTaxesPercentage" #TaxesPercentage="ngModel" type="number"
-                                [(ngModel)]="saleCalculatedTaxesPercentage" class="form-control" readonly>
+                        <input name="CalculatedDiscountValue" #DiscountValue="ngModel" type="number"
+                            [(ngModel)]="saleCalculatedDiscountValue" class="form-control" readonly>
                     </td>
                     <td>
-                            <input name="CalculatedTaxesValue" #TaxesValue="ngModel" type="number"
-                                [(ngModel)]="saleCalculatedTaxesValue" class="form-control" readonly>
+                        <input name="TaxesPercentage_OverInvoice" #TaxesPercentage_OverInvoice="ngModel" type="number"
+                            [(ngModel)]="TaxesPercentageOverInvoice" class="form-control"
+                            (change)="onChangeTaxesPercentageOverInvoice()">
                     </td>
                     <td>
-                            <input name="CalculatedDiscountPercentage" #DiscountPercentage="ngModel" type="number"
-                                [(ngModel)]="saleCalculatedDiscountPercentage" class="form-control" readonly>
+                        <input name="TaxesValue_OverInvoice" #TaxesPercentage_OverInvoice="ngModel" type="number"
+                            [(ngModel)]="TaxesValueOverInvoice" class="form-control"
+                            (cahnge)="onChangeTaxesValueOverInvoice()">
                     </td>
                     <td>
-                            <input name="CalculatedDiscountValue" #DiscountValue="ngModel" type="number"
-                                [(ngModel)]="saleCalculatedDiscountValue" class="form-control" readonly>
+                        <input name="DiscountPercentage_OverInvoice" #TaxesPercentage_OverInvoice="ngModel"
+                            type="number" [(ngModel)]="DiscountPercentageOverInvoice" class="form-control"
+                            (change)="onChangeDiscountPercentageOverInvoice()">
                     </td>
                     <td>
-                            <input name="Total" #Total="ngModel" type="text" [(ngModel)]="saleTotal"
-                                class="form-control" readonly>
+                        <input name="DiscountValue_OverInvoice" #TaxesPercentage_OverInvoice="ngModel" type="number"
+                            [(ngModel)]="DiscountValueOverInvoice" class="form-control"
+                            (change)="onChangeDiscountValueOverInvoice()">
                     </td>
                     <td>
-                            <button type="submit" class="btn btn-primary">
-                                Submit
-                            </button>
+                        <input name="Total" #Total="ngModel" type="text" [(ngModel)]="saleTotal" class="form-control"
+                            readonly>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" (click)="onTenderClick()">
+                            Tender
+                        </button>
                     </td>
                 </tr>
             </table>

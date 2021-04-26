@@ -84,7 +84,31 @@ Selling Transactions Tables
 12- ItemTotal - money
 13- ItemCostOnSelling - money
 
-*** TransactionPayments
+I will not create or use this table at this stage
+*** PaymentTypes
+1- Id - int - Pk
+2- Type - nvarchar(30)
+
+(Done)
+*** CashPayments
+1- Id int PK
+2- SellingTransactionId - int - FK
+3- Amount - money
+
+(Done)
+*** BankCardsPayments
+1- Id int PK
+2- SellingTransactionId - int - FK
+3- Amount - money
+4- CardNumber - nvarchar(100)
+
+(Done)
+*** ContractorsPayments
+1- Id int PK
+2- SellingTransactionId - int - FK
+3- Amount - money
+4- ContractorId - int - FK
+
 
 --------------------------------------------------------------------------------------------------------
 *********************************************
@@ -196,13 +220,17 @@ Customers Tables
 Because users, customers, contractors & vendors have similar pattern for contacts, i may change to general contacts tables
 but i may exclude users, & i may need table for cities & table for countries
 
+
+
+
 *********************************************
+(Done)
 Contractors Tables
 *********************************************
 *** Contractor
-1- ContractorId int
+1- Id int
 2- ContractorName nvarchar(200)
-3- CreditLimit decimal
+3- CreditLimit money
 4- Status nvarchar(10)
 
 --------------------------------------------------------------------------------------------------------

@@ -22,7 +22,7 @@ export class ItemsSelectorComponent implements OnInit {
   }
 
    getItemsByIdentifier(identifier) {
-     
+
     this.itemsService.getItemsByIdentifier(identifier).then(
       res => {
         if(res)
