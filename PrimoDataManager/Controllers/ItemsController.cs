@@ -28,5 +28,15 @@ namespace PrimoDataManager.Controllers
             return data.GetItemsByIdentifier(identifier);
         }
 
+        [HttpPost]
+        [Route("AddNewItem")]
+        public IHttpActionResult SaveNewItem([FromBody]NewItemModel newItem)
+        {
+            ItemData data = new ItemData();
+            data.SaveNewItem(newItem);
+
+            return Ok();
+        }
+
     }
 }

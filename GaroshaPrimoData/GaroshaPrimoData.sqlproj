@@ -105,6 +105,17 @@
     <Build Include="dbo\StoredProcedures\spItemQuantitiesExpiryDates_Select.sql" />
     <Build Include="dbo\StoredProcedures\spItemQuantityExpire_Update.sql" />
     <Build Include="dbo\StoredProcedures\spItemQuantityAndExpireDate_Delete.sql" />
+    <Build Include="dbo\Tables\Ingredient.sql" />
+    <Build Include="dbo\Tables\IngredientPharmacologicalClass.sql" />
+    <Build Include="dbo\Tables\PharmacologicalClass.sql" />
+    <Build Include="dbo\Tables\ItemIngredients.sql" />
+    <Build Include="dbo\Tables\TherapeuticClass.sql" />
+    <Build Include="dbo\Tables\ItemTherapeuticClass.sql" />
+    <Build Include="dbo\StoredProcedures\spItemMaster_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\spItemMaster_GetItemId.sql" />
+    <Build Include="dbo\StoredProcedures\spItemCode_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\spItemTherapeuticClass_Insert.sql" />
+    <Build Include="dbo\StoredProcedures\spItemIngredient_Insert.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="GaroshaPrimoData.refactorlog" />

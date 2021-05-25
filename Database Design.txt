@@ -147,23 +147,32 @@ Example: Panadol => quantity: 3, expire: 5/2022 & Panadol => quantity: 6, expire
 *********************************************
 Ingredients & Classes Tables
 *********************************************
+(Done)
 *** TherapeuticClass
 1- TherapeuticClassId
 2- TherapeuticClassName
 
+(Done)
 *** ItemTherapeuticClass
 1- ItemId int FK
 2- TherapeuticClassId
 
+(Done)
 *** PharmacologicalClass
 1- PharmacologicalClassId int
 2- PharmacologicalClassName
 
+(Done)
 *** Ingredient
 1- IngredientId int
 2- IngredientName nvarchar(200)
-3- PharmacologicalClassId int FK
 
+(Done)
+*** IngredientPharmacologicalClass
+1- IngredientId int FK
+2- PharmacologicalClassId int FK
+
+(Done)
 *** ItemIngredients
 1- ItemId int FK
 2- IngredientId

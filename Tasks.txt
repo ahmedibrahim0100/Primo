@@ -1,8 +1,14 @@
 
 Development phase:
 1- Add Signup functionality in Angular & WPF
+2- Issue: resetting of form values in selling transaction on adding new item to the transaction
+3- TODO-- Handling response error if exists on saving a sale
+4- Issue: complete handling of the scanner
+5- Add new item to the database
 
 Deployment phase:
 1- Comment assembly line in SwaggerConfig.cs because there would be no need for Swagger UI & for security. (Tim Corey, video 4)
+
+
 
 

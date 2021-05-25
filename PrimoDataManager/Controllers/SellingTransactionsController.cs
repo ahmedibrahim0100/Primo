@@ -24,10 +24,12 @@ namespace PrimoDataManager.Controllers
 
         [HttpPost]
         [Route("PostSale")]
-        public void Post([FromBody]SellingTransactionModel saleInfo)
+        public IHttpActionResult Post([FromBody]SellingTransactionModel saleInfo)
         {
             SellingTransactionData data = new SellingTransactionData();
             data.SaveSale(saleInfo);
+
+            return Ok();
         }
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ItemModel } from 'src/app/Items/Models/item-model.model';
 import { Observer, of } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -100,6 +100,7 @@ export class SellingInvoiceComponent implements OnInit {
       }
 
       this.saleItemsDisplay.push(await saleItemDisplay);
+      this._lastItemAddedTime = Date.now();
 
       this.updateTransactionTotals();
 
@@ -397,7 +398,11 @@ export class SellingInvoiceComponent implements OnInit {
         this.stageSellingTransaction();
         console.log(this.sellingTransactionMaster);
         this.sellingTransactionsService.postSellingTransaction(this.sellingTransactionMaster)
-          .then(res => console.log(res));
+          .then(res => {
+            console.log(res);
+            this.resetForm();
+          }
+            );
       });
   }
 
@@ -440,6 +445,41 @@ export class SellingInvoiceComponent implements OnInit {
     NumberOfPieces : this.saleNumberOfPieces,
     InvoicePayment : this.invoicePayment,
     SaleItems : this.saleItems
+    }
+  }
+
+  _lastKeyStrokeTime : number = 0;
+  _barcodePickedCharsList : any[] = [];
+  _lastItemAddedTime : number = 0;
+  barcodeScannerResult : string = '';
+
+  @HostListener('window:keydown', ['$event'])
+  actOnKeyDown(e: KeyboardEvent){
+    console.log(e);
+    
+    let elapsedTime = e.timeStamp - this._lastKeyStrokeTime;
+    if(elapsedTime > 100){
+      this._barcodePickedCharsList = [];
+    }
+    this._barcodePickedCharsList.push(e.key);
+    this._lastKeyStrokeTime = e.timeStamp;
+
+    let addItemInterval = this._lastKeyStrokeTime - this._lastItemAddedTime;
+
+    if(addItemInterval > 100){
+      if(e.key == 'Enter' && this._barcodePickedCharsList.length > 1){
+        this._barcodePickedCharsList.pop();
+        this.barcodeScannerResult = this._barcodePickedCharsList.join('');
+      }
+      // if (e.KeyChar == 13 && _barcode.Count > 1)
+      //           {
+      //               _barcode.RemoveAt(_barcode.Count - 1);
+      //               string msg = new String(_barcode.ToArray());
+      //               txtbxItemIdentification.Text = msg;
+      //               AddtoDgvTransactions();
+      //               //MessageBox.Show(msg);
+      //               _barcode.Clear();
+      //           }
     }
   }
 }
