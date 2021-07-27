@@ -1,4 +1,4 @@
-import { Component, HostListener, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Ingredient } from 'src/app/Ingredients/Models/ingredient.model';
 import { IngredientsService } from 'src/app/Ingredients/Services/ingredients.service';
@@ -14,7 +14,7 @@ import { ItemsService } from '../../Services/items.service';
   templateUrl: './new-item.component.html',
   styleUrls: ['./new-item.component.css']
 })
-export class NewItemComponent implements OnInit, OnChanges {
+export class NewItemComponent implements OnInit {
 
     itemNameEnglish: string;
     itemOtherName: string;
@@ -57,20 +57,6 @@ export class NewItemComponent implements OnInit, OnChanges {
     private ingredientsService : IngredientsService
   ) { }
 
-
-  ngOnChanges(changes: SimpleChanges): void {
-    for(const propName in changes){
-      if(changes.hasOwnProperty(propName)){
-        switch (propName){
-          case 'barcodeScannerResult':{
-            //this.getItemsByIdentifier(this.searchText)
-            this.addScannedBarcodeToList();
-          }
-        }
-      }
-    }
-  }
-
   ngOnInit(): void {
     this.resetForm();
   }
@@ -106,38 +92,51 @@ export class NewItemComponent implements OnInit, OnChanges {
   _lastKeyStrokeTime : number = 0;
   _barcodePickedCharsList : any[] = [];
   _lastItemAddedTime : number = 0;
-  barcodeScannerResult : string = '';
+
+  public set scannerResult(v : string) {
+    this.insertedCode = v;
+    console.log('setter worked');
+  }
+  
+  //scannerResult : string = '';
 
   @HostListener('window:keydown', ['$event'])
   actOnKeyDown(e: KeyboardEvent){
     console.log(e.key);
     
     let elapsedTime = e.timeStamp - this._lastKeyStrokeTime;
-    //console.log(elapsedTime);
+    console.log('elapsed time = ' + elapsedTime);
     if(elapsedTime > 100){
       this._barcodePickedCharsList = [];
     }
     this._barcodePickedCharsList.push(e.key);
     this._lastKeyStrokeTime = e.timeStamp;
 
-    let addItemInterval = this._lastKeyStrokeTime - this._lastItemAddedTime;
+    //let addItemInterval = this._lastKeyStrokeTime - this._lastItemAddedTime;
 
-    if(addItemInterval > 100){
-      if(e.key == 'F12' && this._barcodePickedCharsList.length > 1){
-        this._barcodePickedCharsList.splice(this._barcodePickedCharsList.length - 2, 2);
+    //if(addItemInterval > 100){
+      if(e.key == 'Enter' && this._barcodePickedCharsList.length > 1){
+        console.log('if is true');
+        this._barcodePickedCharsList.pop();
+        //this._barcodePickedCharsList.splice(this._barcodePickedCharsList.length - 2, 2);
         this._barcodePickedCharsList.splice(0, 1);
         console.log(this._barcodePickedCharsList);
-        //this.barcodeScannerResult = this._barcodePickedCharsList.join('');
-        //this._lastItemAddedTime = this._lastKeyStrokeTime;
+        console.log('last item added at timestamp ' + this._lastItemAddedTime);
+        let addItemInterval = this._lastKeyStrokeTime - this._lastItemAddedTime;
+        console.log('addItemInterval is ' + addItemInterval);
+        if(addItemInterval > 100){
+          this.scannerResult = this._barcodePickedCharsList.join('');
+          console.log('scanner result is ' + this.scannerResult);
+          this._lastItemAddedTime = this._lastKeyStrokeTime;
+        }
+        
       }
-    }else{
-      console.log(addItemInterval);
-    }
-
+     
   }
 
   addScannedBarcodeToList(){
-    this.scannerPickedBarcode = this.barcodeScannerResult;
+    console.log('function fired');
+    this.insertedCode = this.scannerResult;
     this.itemCodes.push(this.scannerPickedBarcode);
   }
 

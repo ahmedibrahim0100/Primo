@@ -9,6 +9,26 @@
         <input name="OtherName" #OtherName="ngModel" [(ngModel)]="itemOtherName" type="text" class="form-control">
     </div>
     <div class="form-group">
+        <label for="Codes">Codes</label>
+        <input name="Codes" 
+        #Codes="ngModel" [(ngModel)]="insertedCode" type="text" class="form-control">
+        <button (click)="confirmAddition(insertedCode, itemCodes)">Add</button>
+        <div>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <th>Inserted Codes</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let barcode of itemCodes; let z = index">
+                        <td>{{ barcode }}</td>
+                        <td><button class="btn btn-sm btn-danger" (click)="deleteFromCollection(z, itemCodes)">x</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="form-group">
         <label for="ProducerCompany">ProducerCompany</label>
         <select name="ProducerCompany" #ProducerCompany="ngModel" [(ngModel)]="producerCompanyId" class="form-control">
             <option *ngFor="let company of allProducerCompanies" value="company.ProducerCompanyId">
@@ -55,10 +75,7 @@
         <label for="Description">Description</label>
         <input name="Description" #Description="ngModel" [(ngModel)]="itemDescription" type="text" class="form-control">
     </div>
-    <div class="form-group">
-        <label for="Codes">Codes</label>
-        <input name="Codes" #Codes="ngModel" [(ngModel)]="itemCodes" type="text" class="form-control">
-    </div>
+    
     <div class="form-group">
         <div>
             <label for="TherapeuticClass">Therapeutic Classes</label>
@@ -111,25 +128,6 @@
             </table>
         </div>
     </div>
-    <div class="form-group">
-        <label for="Codes">Codes</label>
-        <input name="Codes" 
-        #Codes="ngModel" [(ngModel)]="insertedCode" type="text" class="form-control">
-        <button (click)="confirmAddition(insertedCode, itemCodes)">Add</button>
-        <div>
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <th>Inserted Codes</th>
-                    <th></th>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let barcode of itemCodes; let z = index">
-                        <td>{{ barcode }}</td>
-                        <td><button class="btn btn-sm btn-danger" (click)="deleteFromCollection(z, itemCodes)">x</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+   
     
 </form>
