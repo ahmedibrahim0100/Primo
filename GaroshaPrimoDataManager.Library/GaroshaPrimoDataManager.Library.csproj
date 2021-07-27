@@ -46,8 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccess\CustomerData.cs" />
+    <Compile Include="DataAccess\IngredientsData.cs" />
     <Compile Include="DataAccess\ItemData.cs" />
+    <Compile Include="DataAccess\ProducerCompaniesData.cs" />
     <Compile Include="DataAccess\SellingTransactionData.cs" />
+    <Compile Include="DataAccess\TherapeuticClassesData.cs" />
     <Compile Include="DataAccess\UserData.cs" />
     <Compile Include="Models\BankCardPaymentDBModel.cs" />
     <Compile Include="Models\BankCardPaymentModel.cs" />
@@ -64,6 +67,7 @@
     <Compile Include="Models\ItemStockDBModel.cs" />
     <Compile Include="Models\ItemTherapeuticClassDBModel.cs" />
     <Compile Include="Models\NewItemModel.cs" />
+    <Compile Include="Models\ProducerCompanyDBModel.cs" />
     <Compile Include="Models\SellingTransactionItemDBModel.cs" />
     <Compile Include="Models\SellingTransactionItemModel.cs" />
     <Compile Include="Models\SellingTransactionMasterDBModel.cs" />

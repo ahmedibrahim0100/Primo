@@ -1,0 +1,135 @@
+<form #addNewItemForm="ngForm" autocomplete="off" class="mt-1 ml-1 mr-1">
+    <div class="form-group">
+        <label for="ItemEnglishName">English Name</label>
+        <input name="ItemEnglishName" #ItemEnglishName="ngModel" [(ngModel)]="itemNameEnglish" type="text"
+            class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="OtherName">Other Name</label>
+        <input name="OtherName" #OtherName="ngModel" [(ngModel)]="itemOtherName" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="ProducerCompany">ProducerCompany</label>
+        <select name="ProducerCompany" #ProducerCompany="ngModel" [(ngModel)]="producerCompanyId" class="form-control">
+            <option *ngFor="let company of allProducerCompanies" value="company.ProducerCompanyId">
+                {{ company.ProducerCompanyName }}
+            </option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="SellingPrice">Selling Price</label>
+        <input name="SellingPrice" #SellingPrice="ngModel" [(ngModel)]="itemSellingPrice" type="number"
+            class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="BuyingDiscountPercentage">Buying Discount %</label>
+        <input name="BuyingDiscountPercentage" #BuyingDiscountPercentage="ngModel"
+            [(ngModel)]="itemBuyingDiscountPercentage" type="number" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="BuyingPrice">Buying Price</label>
+        <input name="BuyingPrice" #BuyingPrice="ngModel" [(ngModel)]="itemBuyingPrice" type="number"
+            class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="taxesPercentageWhenBuying">Taxes % On Buying</label>
+        <input name="taxesPercentageWhenBuying" #taxesPercentageWhenBuying="ngModel"
+            [(ngModel)]="taxesPercentageOnBuying" type="number" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="taxesValueWhenBuying">Taxes Value On Buying</label>
+        <input name="taxesValueWhenBuying" #taxesValueWhenBuying="ngModel" [(ngModel)]="taxesValueOnBuying"
+            type="number" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="taxesPercentageWhenSelling">Taxes % On Selling</label>
+        <input name="taxesPercentageWhenSelling" #taxesPercentageWhenSelling="ngModel"
+            [(ngModel)]="taxesPercentageOnSelling" type="number" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="taxesValueWhenSelling">Taxes Value On Selling</label>
+        <input name="taxesValueWhenSelling" #taxesValueWhenSelling="ngModel" [(ngModel)]="taxesValueOnSelling"
+            type="number" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="Description">Description</label>
+        <input name="Description" #Description="ngModel" [(ngModel)]="itemDescription" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="Codes">Codes</label>
+        <input name="Codes" #Codes="ngModel" [(ngModel)]="itemCodes" type="text" class="form-control">
+    </div>
+    <div class="form-group">
+        <div>
+            <label for="TherapeuticClass">Therapeutic Classes</label>
+            <select name="TherapeuticClass" #TherapeuticClass="ngModel" [(ngModel)]="selectedTherapeuticClass"
+                class="form-control">
+                <option *ngFor="let class of allTherapeuticClasses" [ngValue]="class">
+                    {{ class.TherapeuticClassName }}
+                </option>
+            </select>
+            <button (click)="confirmAddition(selectedTherapeuticClass, selectedTherapeuticClasses)">Add</button>
+        </div>
+        <div>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <th>Selected Therapeutic Classes</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let cl of selectedTherapeuticClasses; let i = index">
+                        <td>{{ cl.TherapeuticClassName }}</td>
+                        <td><button class="btn btn-sm btn-danger" (click)="deleteFromCollection(i, selectedTherapeuticClasses)">x</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="form-group">
+        <div>
+            <label for="Ingredient">Ingredients</label>
+            <select name="Ingredient" #Ingredient="ngModel" [(ngModel)]="selectedIngredient"
+                class="form-control">
+                <option *ngFor="let ingred of allIngredients" [ngValue]="ingred">
+                    {{ ingred.IngredientName }}
+                </option>
+            </select>
+            <button (click)="confirmAddition(selectedIngredient, selectedIngredients)">Add</button>
+        </div>
+        <div>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <th>Selected Ingredients</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let ingr of selectedIngredients; let x = index">
+                        <td>{{ ingr.IngredientName }}</td>
+                        <td><button class="btn btn-sm btn-danger" (click)="deleteFromCollection(x, selectedIngredients)">x</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="Codes">Codes</label>
+        <input name="Codes" 
+        #Codes="ngModel" [(ngModel)]="insertedCode" type="text" class="form-control">
+        <button (click)="confirmAddition(insertedCode, itemCodes)">Add</button>
+        <div>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <th>Inserted Codes</th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let barcode of itemCodes; let z = index">
+                        <td>{{ barcode }}</td>
+                        <td><button class="btn btn-sm btn-danger" (click)="deleteFromCollection(z, itemCodes)">x</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+</form>

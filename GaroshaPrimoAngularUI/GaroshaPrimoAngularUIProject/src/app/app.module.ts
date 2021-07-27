@@ -25,6 +25,7 @@ import { CustomersSelectorComponent } from './Customers/Components/customers-sel
 import { CustomersBrowserComponent } from './Customers/Components/customers-browser/customers-browser.component';
 import { AssignUserComponent } from './Authentication/Components/assign-user/assign-user.component';
 import { InvoicePaymentComponent } from './Selling/Components/invoice-payment/invoice-payment.component';
+import { NewItemComponent } from './Items/Components/new-item/new-item.component';
 
 
 
@@ -43,7 +44,8 @@ import { InvoicePaymentComponent } from './Selling/Components/invoice-payment/in
     CustomersSelectorComponent,
     CustomersBrowserComponent,
     AssignUserComponent,
-    InvoicePaymentComponent
+    InvoicePaymentComponent,
+    NewItemComponent
   ],
   imports: [
     BrowserModule,

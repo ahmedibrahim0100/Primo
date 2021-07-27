@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ItemModel } from '../Models/item-model.model';
 import { environment } from 'src/environments/environment';
+import { NewItemModel } from '../Models/new-item-model.model';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -33,5 +34,10 @@ export class ItemsService {
       //.then(res => Object.assign(this.selectedItems, res));
 
       //.subscribe(res => Object.assign(this.selectedItems, res));     
+  }
+
+  postNewItem(newItem : NewItemModel){
+    return this.http.post(environment.apiURL + '/Items/AddNewItem',
+    newItem).toPromise();
   }
 }

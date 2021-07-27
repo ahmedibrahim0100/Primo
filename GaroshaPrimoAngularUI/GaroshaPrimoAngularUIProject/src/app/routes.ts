@@ -8,6 +8,7 @@ import { ItemsListComponent } from './Items/Components/items-list/items-list.com
 import { ItemsSelectorComponent } from './Items/Components/items-selector/items-selector.component';
 import { SellingInvoiceComponent } from './Selling/Components/selling-invoice/selling-invoice.component';
 import { CustomersSelectorComponent } from './Customers/Components/customers-selector/customers-selector.component';
+import { NewItemComponent } from './Items/Components/new-item/new-item.component';
 
 
 export const appRoutes : Routes = [
@@ -18,5 +19,6 @@ export const appRoutes : Routes = [
     { path: 'items-list', component: ItemsListComponent },
     { path: 'items-selector', component: ItemsSelectorComponent },
     { path: 'selling-invoice', component: SellingInvoiceComponent },
-    { path : 'customers-selector', component : CustomersSelectorComponent }
+    { path : 'customers-selector', component : CustomersSelectorComponent },
+    { path : 'new-item', component : NewItemComponent }
 ]
