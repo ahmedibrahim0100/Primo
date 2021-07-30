@@ -19,7 +19,7 @@ export class NewItemComponent implements OnInit {
 
     itemNameEnglish: string;
     itemOtherName: string;
-    producerCompanyId: number;
+    producingCompanyId: number;
     itemSellingPrice: number;
     itemBuyingDiscountPercentage: number;
     itemBuyingPrice: number;
@@ -41,15 +41,8 @@ export class NewItemComponent implements OnInit {
     selectedIngredients : Ingredient[];
 
     insertedCode : string;
-    scannerPickedBarcode : string;
-
     itemCodes: string[];
-    
-    ingredientsIds: number[];
 
-    
-    
-    
 
   constructor(
     private itemsService : ItemsService,
@@ -78,6 +71,19 @@ export class NewItemComponent implements OnInit {
     this.selectedTherapeuticClasses = [];
     this.selectedIngredients = [];
     this.itemCodes = [];
+
+    this.itemNameEnglish = '';
+    this.itemOtherName = '';
+    this.producingCompanyId = 1;
+    this.itemSellingPrice = 0;
+    this.itemBuyingDiscountPercentage = 0;
+    this.itemBuyingPrice = 0;
+    this.taxesPercentageOnBuying = 0;
+    this.taxesValueOnBuying = 0;
+    this.taxesPercentageOnSelling = 0;
+    this.taxesValueOnSelling = 0;
+    this.itemDescription = '';
+    this.itemStatus = '';
     
     this.scannerResult$.subscribe(res => this.processScannedBarcode(res));
     //this.therapeuticClassesIds = [];
@@ -168,4 +174,32 @@ export class NewItemComponent implements OnInit {
       //Nothing to do now
     }
   }
+
+  saveNewItem(){
+    let newItem : NewItemModel = {
+      ItemNameEnglish : this.itemNameEnglish,
+      ItemOtherName : this.itemOtherName,
+      ProducerCompanyId : this.producingCompanyId,
+      ItemSellingPrice : this.itemSellingPrice,
+      ItemBuyingDiscountPercentage : this.itemBuyingDiscountPercentage,
+      ItemBuyingPrice : this.itemBuyingPrice,
+      TaxesPercentageOnBuying : this.taxesPercentageOnBuying,
+      TaxesValueOnBuying : this.taxesValueOnBuying,
+      TaxesPercentageOnSelling : this.taxesPercentageOnSelling,
+      TaxesValueOnSelling : this.taxesValueOnSelling,
+      ItemDescription : this.itemDescription,
+      ItemStatus : '',
+      ItemCodes : this.itemCodes,
+      TherapeuticClassesIds : this.selectedTherapeuticClasses
+        .map(therapeuticClass => therapeuticClass.Id),
+      IngredientsIds : this.selectedIngredients.map(ingredient => ingredient.Id)
+    };
+
+    this.itemsService.postNewItem(newItem)
+      .then(res => {
+        console.log(res);
+        this.resetForm();
+      });
+  }
+
 }

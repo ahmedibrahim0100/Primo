@@ -38,5 +38,13 @@ namespace PrimoDataManager.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        [Route("VerifyNewItem")]
+        public Object VerifyNewItem(NewItemVerificationModel item)
+        {
+            ItemData data = new ItemData();
+            return data.VerifyNewItem(item);
+        }
+
     }
 }

@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[spItemMaster_Insert]
-		@ItemId INT OUTPUT,
+		@ItemId INT output,
         @ItemNameEnglish NVARCHAR(200),
         @ItemOtherName  NVARCHAR(200),
         @ProducerCompanyId INT,
@@ -12,12 +12,12 @@
         @TaxesValueOnSelling MONEY,
         @ItemDescription NVARCHAR(MAX),
         @CreatedDate DATETIME2,
-        @LastModified DATETIME2
+        @LastModified DATETIME2,
+		@ItemStatus NVARCHAR(10)
 AS
 	BEGIN
 	SET NOCOUNT ON;
 	INSERT INTO dbo.ItemsMaster(
-	ItemId, 
     ItemNameEnglish, 
     ItemOtherName, 
     ProducerCompanyId, 
@@ -30,10 +30,10 @@ AS
 	TaxesValueOnSelling,
     ItemDescription, 
     CreatedDate, 
-    LastModified
+    LastModified,
+	ItemStatus
 	)
 	VALUES (
-	@ItemId, 
     @ItemNameEnglish, 
     @ItemOtherName, 
     @ProducerCompanyId, 
@@ -46,8 +46,9 @@ AS
 	@TaxesValueOnSelling,
     @ItemDescription, 
     @CreatedDate,
-    @LastModified
-	)
+    @LastModified,
+	@ItemStatus
+	);
 
 	SELECT @ItemId = SCOPE_IDENTITY();
 

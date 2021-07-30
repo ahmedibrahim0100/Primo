@@ -30,8 +30,8 @@
     </div>
     <div class="form-group">
         <label for="ProducerCompany">ProducerCompany</label>
-        <select name="ProducerCompany" #ProducerCompany="ngModel" [(ngModel)]="producerCompanyId" class="form-control">
-            <option *ngFor="let company of allProducerCompanies" value="company.ProducerCompanyId">
+        <select name="ProducerCompany" #ProducerCompany="ngModel" [(ngModel)]="producingCompanyId" class="form-control">
+            <option *ngFor="let company of allProducerCompanies" [value]="company.ProducerCompanyId">
                 {{ company.ProducerCompanyName }}
             </option>
         </select>
@@ -127,7 +127,8 @@
                 </tbody>
             </table>
         </div>
+    </div> 
+    <div>
+        <button class="btn btn-lg btn-primary" (click)="saveNewItem()">Save</button>
     </div>
-   
-    
 </form>

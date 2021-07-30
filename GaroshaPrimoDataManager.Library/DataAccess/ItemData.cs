@@ -43,7 +43,8 @@ namespace GaroshaPrimoDataManager.Library.DataAccess
                 TaxesValueOnSelling = newItem.TaxesValueOnSelling,
                 ItemDescription = newItem.ItemDescription,
                 CreatedDate = DateTime.Now,
-                LastModified = DateTime.Now
+                LastModified = DateTime.Now,
+                ItemStatus = "active"
             };
 
             using (SqlDataAccess sql = new SqlDataAccess())
@@ -109,6 +110,86 @@ namespace GaroshaPrimoDataManager.Library.DataAccess
                     throw;
                 }
             }
+        }
+
+        public ItemMasterDBModel GetItemByEnglishName(string englishName)
+        {
+            SqlDataAccess sql = new SqlDataAccess();
+            var p = new { identifier = englishName };
+            var output = sql.LoadData<ItemMasterDBModel, dynamic>("dbo.spItems_SearchByEnglishName", p, "GaroshaPrimoData").FirstOrDefault();
+
+            return output;
+        }
+
+        public ItemMasterDBModel GetItemByOtherName(string otherName)
+        {
+            SqlDataAccess sql = new SqlDataAccess();
+            var p = new { identifier = otherName };
+            var output = sql.LoadData<ItemMasterDBModel, dynamic>("dbo.spItems_SearchByOtherName", p, "GaroshaPrimoData").FirstOrDefault();
+
+            return output;
+        }
+
+        public ItemMasterDBModel GetItemByCode(string code)
+        {
+            SqlDataAccess sql = new SqlDataAccess();
+            var p = new { identifier = code };
+            var output = sql.LoadData<ItemMasterDBModel, dynamic>("dbo.spItems_SearchByCode", p, "GaroshaPrimoData").FirstOrDefault();
+
+            return output;
+        }
+
+        public Object VerifyNewItem(NewItemVerificationModel item)
+        {
+            ItemData data = new ItemData();
+            ItemMasterDBModel itemOfSimilar_EnglishName;
+            ItemMasterDBModel itemOfSimilar_OtherName;
+            List<ItemMasterDBModel> itemsOfSimilar_Code = new List<ItemMasterDBModel>();
+            bool itemDataVerified = true;
+            
+
+            if (item.ItemNameEnglish != null)
+            {
+                itemOfSimilar_EnglishName = GetItemByEnglishName(item.ItemNameEnglish);
+                if(itemOfSimilar_EnglishName != null)
+                {
+                    var result = new KeyValuePair<string, ItemMasterDBModel>(nameof(item.ItemNameEnglish), itemOfSimilar_EnglishName);
+                    return result;
+                }
+            }
+
+            if(item.ItemOtherName != null)
+            {
+                itemOfSimilar_OtherName = GetItemByOtherName(item.ItemOtherName);
+                if (itemOfSimilar_OtherName != null)
+                {
+                    var result = new KeyValuePair<string, ItemMasterDBModel>(nameof(item.ItemNameEnglish), itemOfSimilar_OtherName);
+                    return result;
+                }
+            }
+
+            if(item.ItemCodes.Length > 0)
+            {
+                for (int i = 0; i < item.ItemCodes.Length; i++)
+                {
+                    ItemMasterDBModel itemOfSimilar_Code = GetItemByCode(item.ItemCodes[i]);
+                    if(itemOfSimilar_Code != null)
+                    {
+                        var output = new
+                        {
+                            repeatedItem = itemOfSimilar_Code,
+                            repeatedCode = item.ItemCodes[i]
+                        };
+
+                        var result = new KeyValuePair<string, dynamic>(nameof(item.ItemCodes), output);
+                        return result;
+                    }
+                }
+
+            }
+
+
+            return itemDataVerified;
         }
     }
 }
