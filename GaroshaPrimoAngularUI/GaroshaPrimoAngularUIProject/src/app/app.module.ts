@@ -26,6 +26,8 @@ import { CustomersBrowserComponent } from './Customers/Components/customers-brow
 import { AssignUserComponent } from './Authentication/Components/assign-user/assign-user.component';
 import { InvoicePaymentComponent } from './Selling/Components/invoice-payment/invoice-payment.component';
 import { NewItemComponent } from './Items/Components/new-item/new-item.component';
+import { NewItemRepetitionErrorComponent } from './Items/Components/new-item-repetition-error/new-item-repetition-error.component';
+import { SimpleAlertWindowComponent } from './SharedTools/simple-alert-window/simple-alert-window.component';
 
 
 
@@ -45,7 +47,9 @@ import { NewItemComponent } from './Items/Components/new-item/new-item.component
     CustomersBrowserComponent,
     AssignUserComponent,
     InvoicePaymentComponent,
-    NewItemComponent
+    NewItemComponent,
+    NewItemRepetitionErrorComponent,
+    SimpleAlertWindowComponent
   ],
   imports: [
     BrowserModule,

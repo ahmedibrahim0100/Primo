@@ -120,6 +120,8 @@
     <Build Include="dbo\StoredProcedures\spTherapeuticClass_GetAll.sql" />
     <Build Include="dbo\StoredProcedures\spIngredient_GetAll.sql" />
     <Build Include="dbo\StoredProcedures\spItems_SearchByCode.sql" />
+    <Build Include="dbo\StoredProcedures\spItems_SearchByEnglishName.sql" />
+    <Build Include="dbo\StoredProcedures\spItems_SearchByOtherName.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="GaroshaPrimoData.refactorlog" />

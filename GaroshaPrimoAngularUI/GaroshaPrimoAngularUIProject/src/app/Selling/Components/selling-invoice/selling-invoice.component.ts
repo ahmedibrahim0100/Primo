@@ -401,6 +401,7 @@ export class SellingInvoiceComponent implements OnInit {
           .then(res => {
             console.log(res);
             this.resetForm();
+            
           }
             );
       });

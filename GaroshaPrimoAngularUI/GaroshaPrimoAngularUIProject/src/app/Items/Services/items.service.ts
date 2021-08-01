@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { NewItemModel } from '../Models/new-item-model.model';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { NewItemVerificationModel } from '../Models/new-item-verification-model.model';
 
 @Injectable({
   providedIn: 'root'
@@ -40,4 +41,19 @@ export class ItemsService {
     return this.http.post(environment.apiURL + '/Items/AddNewItem',
     newItem).toPromise();
   }
+
+  verifyNewItem(item : NewItemVerificationModel){
+    return this.http.post(environment.apiURL + '/Items/VerifyNewItem', 
+    item)
+      .toPromise();
+  }
+
+  // get(url: string, 
+  //   options: { headers?: HttpHeaders | { [header: string]: string | string[]; }; 
+  //   observe?: "body"; 
+  //   params?: HttpParams | { [param: string]: string | string[]; }; 
+  //   reportProgress?: boolean; 
+  //   responseType: "arraybuffer"; 
+  //   withCredentials?: boolean; })
+  //   : Observable<ArrayBuffer>
 }

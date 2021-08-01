@@ -67,6 +67,7 @@
     <Compile Include="Models\ItemStockDBModel.cs" />
     <Compile Include="Models\ItemTherapeuticClassDBModel.cs" />
     <Compile Include="Models\NewItemModel.cs" />
+    <Compile Include="Models\NewItemVerificationModel.cs" />
     <Compile Include="Models\ProducerCompanyDBModel.cs" />
     <Compile Include="Models\SellingTransactionItemDBModel.cs" />
     <Compile Include="Models\SellingTransactionItemModel.cs" />

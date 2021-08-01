@@ -1,14 +1,18 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject } from 'rxjs';
 import { Ingredient } from 'src/app/Ingredients/Models/ingredient.model';
 import { IngredientsService } from 'src/app/Ingredients/Services/ingredients.service';
 import { ProducerCompany } from 'src/app/ProducerCompanies/Models/producer-company.model';
 import { ProducerCompaniesService } from 'src/app/ProducerCompanies/Services/producer-companies.service';
+import { SimpleAlertWindowComponent } from 'src/app/SharedTools/simple-alert-window/simple-alert-window.component';
 import { TherapeuticClass } from 'src/app/TherapeuticClasses/Models/therapeutic-class.model';
 import { TherapeuticClassesService } from 'src/app/TherapeuticClasses/Services/therapeutic-classes.service';
 import { NewItemModel } from '../../Models/new-item-model.model';
+import { NewItemVerificationModel } from '../../Models/new-item-verification-model.model';
 import { ItemsService } from '../../Services/items.service';
+import { NewItemRepetitionErrorComponent } from '../new-item-repetition-error/new-item-repetition-error.component';
 
 @Component({
   selector: 'app-new-item',
@@ -43,12 +47,16 @@ export class NewItemComponent implements OnInit {
     insertedCode : string;
     itemCodes: string[];
 
+    successString : string = 'Item saved successfully';
+    repetitionErrorString : string = '';
+
 
   constructor(
     private itemsService : ItemsService,
     private producerCompaniesService : ProducerCompaniesService,
     private therapeuticClassesService : TherapeuticClassesService,
-    private ingredientsService : IngredientsService
+    private ingredientsService : IngredientsService,
+    private dialog : MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -84,6 +92,8 @@ export class NewItemComponent implements OnInit {
     this.taxesValueOnSelling = 0;
     this.itemDescription = '';
     this.itemStatus = '';
+    this.insertedCode = '';
+    this.repetitionErrorString = '';
     
     this.scannerResult$.subscribe(res => this.processScannedBarcode(res));
     //this.therapeuticClassesIds = [];
@@ -116,10 +126,10 @@ export class NewItemComponent implements OnInit {
   actOnKeyDown(e: KeyboardEvent){
 
     //Testing
-    console.log(e.key);
+    //console.log(e.key);
     
     let elapsedTime = e.timeStamp - this._lastKeyStrokeTime;
-    console.log('elapsed time = ' + elapsedTime);
+    //console.log('elapsed time = ' + elapsedTime);
     if(elapsedTime > 100){
       this._barcodePickedCharsList = [];
     }
@@ -176,30 +186,80 @@ export class NewItemComponent implements OnInit {
   }
 
   saveNewItem(){
-    let newItem : NewItemModel = {
-      ItemNameEnglish : this.itemNameEnglish,
-      ItemOtherName : this.itemOtherName,
-      ProducerCompanyId : this.producingCompanyId,
-      ItemSellingPrice : this.itemSellingPrice,
-      ItemBuyingDiscountPercentage : this.itemBuyingDiscountPercentage,
-      ItemBuyingPrice : this.itemBuyingPrice,
-      TaxesPercentageOnBuying : this.taxesPercentageOnBuying,
-      TaxesValueOnBuying : this.taxesValueOnBuying,
-      TaxesPercentageOnSelling : this.taxesPercentageOnSelling,
-      TaxesValueOnSelling : this.taxesValueOnSelling,
-      ItemDescription : this.itemDescription,
-      ItemStatus : '',
-      ItemCodes : this.itemCodes,
-      TherapeuticClassesIds : this.selectedTherapeuticClasses
-        .map(therapeuticClass => therapeuticClass.Id),
-      IngredientsIds : this.selectedIngredients.map(ingredient => ingredient.Id)
-    };
+    if(this.itemNameEnglish != ''){
+      let newItem : NewItemModel = {
+        ItemNameEnglish : this.itemNameEnglish,
+        ItemOtherName : this.itemOtherName,
+        ProducerCompanyId : this.producingCompanyId,
+        ItemSellingPrice : this.itemSellingPrice,
+        ItemBuyingDiscountPercentage : this.itemBuyingDiscountPercentage,
+        ItemBuyingPrice : this.itemBuyingPrice,
+        TaxesPercentageOnBuying : this.taxesPercentageOnBuying,
+        TaxesValueOnBuying : this.taxesValueOnBuying,
+        TaxesPercentageOnSelling : this.taxesPercentageOnSelling,
+        TaxesValueOnSelling : this.taxesValueOnSelling,
+        ItemDescription : this.itemDescription,
+        ItemStatus : '',
+        ItemCodes : this.itemCodes,
+        TherapeuticClassesIds : this.selectedTherapeuticClasses
+          .map(therapeuticClass => therapeuticClass.Id),
+        IngredientsIds : this.selectedIngredients.map(ingredient => ingredient.Id)
+      };
+  
+      let verificationData : NewItemVerificationModel = {
+        ItemNameEnglish : newItem.ItemNameEnglish,
+        ItemOtherName : newItem.ItemOtherName,
+        ItemCodes : newItem.ItemCodes
+      };
+  
+      this.itemsService.verifyNewItem(verificationData).then((data : any) => {
+        if(data == true){
+          //console.log('verification done with' + data);
+          this.itemsService.postNewItem(newItem)
+            .then((res) => {
+              this.dialog.open(SimpleAlertWindowComponent, {
+                autoFocus : true,
+                width : '50%',
+                data : this.successString
+              }).afterClosed()
+                .subscribe(() => {
+                  this.resetForm();
+                });    
+        });
+        }else{
+          // console.log(data);
+          // console.log(data.Key);
+          this.repetitionErrorString = this.processDialogMessage(data);
+          //console.log('repetition message is ' + this.repetitionErrorString);
+          this.dialog.open(NewItemRepetitionErrorComponent, {
+            autoFocus : true,
+            width : '50%',
+            data : this.repetitionErrorString
+          });
+        }
+      }  
+      );
+    }
+    
+  }
 
-    this.itemsService.postNewItem(newItem)
-      .then(res => {
-        console.log(res);
-        this.resetForm();
-      });
+  processDialogMessage(data : any) : string {
+    //console.log('processdialogmessage fired ' + data.Key);
+    let message : string;
+    if(data.Key === 'ItemCodes'){
+      console.log('Item code is repeated !!!!!!');
+      message = 'The item: ' + data.Value.repeatedItem.ItemNameEnglish + 
+      ' has the barcode: ' + data.Value.repeatedCode;
+      console.log(message);
+    }else if(data.Key === 'ItemNameEnglish'){
+      message = 'The item: ' + data.Value.ItemNameEnglish + 
+      ' has the same english name: ' + data.Value.ItemNameEnglish;
+    }else if(data.Key === 'ItemOtherName'){
+      message = 'The item: ' + data.Value.ItemOtherName + 
+      ' has the same other name: ' + data.Value.ItemOtherName;
+    }
+
+    return message;
   }
 
 }
