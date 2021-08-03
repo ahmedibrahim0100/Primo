@@ -186,9 +186,10 @@ Producer Companies & Vendors Tables
 2- ProducerCompanyName nvarchar(200)
 3- ProducerCompanyStatus nvarchar(10)
 
+(Done)
 *** Vendor
 1- VendorId int
-2- VendorName nvarchar(150)
+2- VendorName nvarchar(200)
 3- VendorBalance decimal
 4- VendorStatus nvarchar(10)
 
@@ -246,5 +247,41 @@ Contractors Tables
 *********************************************
 Buying Transactions Tables
 *********************************************
+
+*** BuyingTransactionsMaster
+1- TransactionId - int - primary key
+2- TransactionTiming - datetime2(7) - default: getdate()
+3- Subtotal - money
+4- CalculatedTaxesPercentage DECIMAL (6, 3) NULL, => it is the taxes percentage based on taxes of every item, and so on for any column has the word 'calculated' in this table
+5- CalculatedTaxesValue MONEY NULL, 
+6- CalculatedRetailDiscountPercentage DECIMAL (6, 3) NULL,
+7- CalculatedRetailDiscountValue MONEY NULL,
+8- TaxesPercentageOverInvoice DECIMAL (6, 3) NULL, => it is the taxes percentage the seller can add for the overall sale regardless of the calculated taxes
+9- TaxesValueOverInvoice MONEY NULL,
+10-	RetailDiscountPercentageOverInvoice DECIMAL (6, 3) NULL,
+11-	RetailDiscountValueOverInvoice MONEY NULL,
+12- Total - money
+13- UserId - nvarchar(128) - FK
+14- ShiftOwnerId
+15- VendorId - FK
+16- NumberOfItems - int
+17- NumberOfPieces - decimal(18,3)
+
+
+
+
+*** BuyingTransactionsItems
+1- Id int PK
+2- BuyingTransactionId - int - FK
+3- ItemId - int - FK
+4- ItemExpiryDate - date
+5- BuyingTransactionItemQuantity - decimal(18,3) - default:1
+6- ItemSellingPrice - money
+7- ItemBuyingDiscountPercentage - decimal(6,3)
+8- ItemBuyingPrice - money
+9- ItemSubtotal - money
+10- ItemBuyingTaxesPercentage - decimal(6,3)
+11- ItemBuyingTaxesValue - money
+12- ItemTotal - money
 
 

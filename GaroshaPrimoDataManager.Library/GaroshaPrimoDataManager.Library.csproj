@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\BuyingTransactionData.cs" />
     <Compile Include="DataAccess\CustomerData.cs" />
     <Compile Include="DataAccess\IngredientsData.cs" />
     <Compile Include="DataAccess\ItemData.cs" />
@@ -54,6 +55,10 @@
     <Compile Include="DataAccess\UserData.cs" />
     <Compile Include="Models\BankCardPaymentDBModel.cs" />
     <Compile Include="Models\BankCardPaymentModel.cs" />
+    <Compile Include="Models\BuyingTransactionItemDBModel.cs" />
+    <Compile Include="Models\BuyingTransactionItemModel.cs" />
+    <Compile Include="Models\BuyingTransactionMasterDBModel.cs" />
+    <Compile Include="Models\BuyingTransactionModel.cs" />
     <Compile Include="Models\CashPaymentDBModel.cs" />
     <Compile Include="Models\ContractorPaymentDBModel.cs" />
     <Compile Include="Models\ContractorPaymentModel.cs" />

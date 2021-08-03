@@ -28,6 +28,7 @@ import { InvoicePaymentComponent } from './Selling/Components/invoice-payment/in
 import { NewItemComponent } from './Items/Components/new-item/new-item.component';
 import { NewItemRepetitionErrorComponent } from './Items/Components/new-item-repetition-error/new-item-repetition-error.component';
 import { SimpleAlertWindowComponent } from './SharedTools/simple-alert-window/simple-alert-window.component';
+import { BuyingInvoiceComponent } from './Buying/Components/buying-invoice/buying-invoice.component';
 
 
 
@@ -49,7 +50,8 @@ import { SimpleAlertWindowComponent } from './SharedTools/simple-alert-window/si
     InvoicePaymentComponent,
     NewItemComponent,
     NewItemRepetitionErrorComponent,
-    SimpleAlertWindowComponent
+    SimpleAlertWindowComponent,
+    BuyingInvoiceComponent
   ],
   imports: [
     BrowserModule,
