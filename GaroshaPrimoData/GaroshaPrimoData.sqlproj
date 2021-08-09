@@ -129,6 +129,7 @@
     <Build Include="dbo\StoredProcedures\spBuyingTransactionMaster_GetId.sql" />
     <Build Include="dbo\StoredProcedures\spBuyingTransactionsItems_Insert.sql" />
     <Build Include="dbo\StoredProcedures\spItemQuantitiesExpiryDates_InsertOnBuying.sql" />
+    <Build Include="dbo\StoredProcedures\spVendors_GetAll.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="GaroshaPrimoData.refactorlog" />

@@ -1,1 +1,224 @@
-<p>buying-invoice works!</p>
+<form #buyingInvoiceForm="ngForm" autocomplete="off" class="mt-1 ml-1 mr-1">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label>User</label>
+                <div class="form-row">
+                    <div class="col-8">
+                        <input name="user" #user="ngModel" [(ngModel)]="user.Name"
+                        type="text" class="form-control" readonly>
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-primary" (click)="onChangeUserRequest()">Change</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label>Shift Owner</label>
+                <input name="ShiftOwnerName" #ShiftOwnerName="ngModel" [(ngModel)]="shiftOwner.Name" type="text"
+                    class="form-control" readonly>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label for="Vendor">Vendor/label>
+                <select name="Vendor" #Vendor="ngModel" [(ngModel)]="selectedVendorId" class="form-control">
+                    <option *ngFor="let vend of allVendors" [value]="vend.VendorId">
+                        {{ vend.VendorName }}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- ///////////////////////////////////////////////////////////////////// -->
+
+    <div class="row">
+        <div class="col-md-4">
+            <app-items-selector (gotItems)="onGettingItems($event)" (cannotGetItems)="onCannotGetItems()"
+            [searchText]="insertedCode">
+            </app-items-selector>
+        </div>
+        <div class="col-md-4"></div>
+        <div class="col-md-4"></div>
+    </div>
+
+    <table class="table table-hover table-striped table-bordered mt-2" style="table-layout: fixed;">
+        <thead class="thead-light">
+            <th>ItemName</th>
+            <th>Quantity</th>
+            <th>ExpiryDate</th>
+            <th>Selling Price</th>
+            <th>Discount %</th>
+            <th>Buying Price</th>
+            <th>Subtotal</th>
+            <th>Taxes %</th>
+            <th>Taxes</th>
+            <th>Total</th>
+            <th>Stock</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of buyingTransactionItemsDisplay; let i = index;">
+                <td>{{ item.ItemNameEnglish }}</td>
+                <td>
+                    <input type="number" name="ItemDisplayQuantity" #ItemDisplayQuantity="ngModel"
+                        [(ngModel)]="buyingTransactionItemsDisplay[i].BuyingTransactionItemQuantity"
+                        (change)="onChangeItemQuantity(i)" class="w-75">
+                </td>
+                <td>{{ item.ItemExpiryDate }}</td>
+                <td>{{ item.ItemSellingPrice }}</td>
+                <td>
+                    <input type="number" name="ItemDisplayDiscountPercentage"
+                        #ItemDisplayDiscountPercentage="ngModel"
+                        [(ngModel)]="buyingTransactionItemsDisplay[i].ItemBuyingDiscountPercentage"
+                        (change)="onChangeItemBuyingDiscountPercentage(i)" class="w-75">
+                </td>
+                <td>
+                    <input type="number" name="ItemDisplayBuyingPrice"
+                        #ItemDisplayBuyingPrice="ngModel"
+                        [(ngModel)]="buyingTransactionItemsDisplay[i].ItemBuyingPrice"
+                        (change)="onChangeItemBuyingPrice(i)" class="w-75">
+                </td>
+                
+                <td>{{ item.ItemSubtotal }}</td>
+                <td>
+                    <input type="number" name="ItemDisplayTaxesPercentage"
+                        #ItemDisplayTaxesPercentage="ngModel"
+                        [(ngModel)]="buyingTransactionItemsDisplay[i].ItemBuyingTaxesPercentage"
+                        (change)="onChangeItemBuyingTaxesPercentage(i)" class="w-75">
+                </td>
+                <td>
+                    <input type="number" name="ItemDisplayTaxesValue"
+                        #ItemDisplayTaxesValue="ngModel"
+                        [(ngModel)]="buyingTransactionItemsDisplay[i].ItemBuyingTaxesValue"
+                        (change)="onChangeItemBuyingTaxesValue(i)" class="w-75">
+                </td>
+                
+                <td>{{ item.ItemTotal }}</td>
+                <td>{{ item.Stock }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="fixed-bottom">
+        <div>
+            <table class="table" style="table-layout: fixed;">
+                <thead>
+                    <th>Subtotal</th>
+                    <th>Items Discount %</th>
+                    <th>Items Discount</th>
+                    <th>Items Taxes %</th>
+                    <th>Items Taxes</th>
+                    <th>Other Overall Discount %</th>
+                    <th>Other Overall Discount</th>
+                    <th>Other Taxes %</th>
+                    <th>Other Taxes</th>
+                    <th>Total</th>
+                    <th></th>
+                </thead>
+                <tr>
+                    <td>
+                        <input name="Subtotal" #Subtotal="ngModel" type="number" [(ngModel)]="buyingTransactionSubtotal"
+                            class="form-control" readonly>
+                    </td>
+                    <td>
+                        <input name="CalculatedDiscountPercentage" #DiscountPercentage="ngModel" type="number"
+                            [(ngModel)]="buyingTransactionCalculatedDiscountPercentage" class="form-control" readonly>
+                    </td>
+                    <td>
+                        <input name="CalculatedDiscountValue" #DiscountValue="ngModel" type="number"
+                            [(ngModel)]="buyingTransactionCalculatedDiscountValue" class="form-control" readonly>
+                    </td>
+                    <td>
+                        <input name="CalculatedTaxesPercentage" #TaxesPercentage="ngModel" type="number"
+                            [(ngModel)]="buyingTransactionCalculatedTaxesPercentage" class="form-control" readonly>
+                    </td>
+                    <td>
+                        <input name="CalculatedTaxesValue" #TaxesValue="ngModel" type="number"
+                            [(ngModel)]=" buyingTransactionCalculatedTaxesValue" class="form-control" readonly>
+                    </td>
+                    
+                    
+                    <td>
+                        <input name="DiscountPercentage_OverInvoice" #TaxesPercentage_OverInvoice="ngModel"
+                            type="number" [(ngModel)]="retailDiscountPercentageOverTransaction" class="form-control"
+                            (change)="onChangeRetailDiscountPercentageOverTransaction()">
+                    </td>
+                    <td>
+                        <input name="DiscountValue_OverInvoice" #TaxesPercentage_OverInvoice="ngModel" type="number"
+                            [(ngModel)]="retailDiscountValueOverTransaction" class="form-control"
+                            (change)="onChangeRetailDiscountValueOverTransaction()">
+                    </td>
+                    <td>
+                        <input name="TaxesPercentage_OverInvoice" #TaxesPercentage_OverInvoice="ngModel" type="number"
+                            [(ngModel)]="taxesPercentageOverTransaction" class="form-control"
+                            (change)="onChangeTaxesPercentageOverTransaction()">
+                    </td>
+                    <td>
+                        <input name="TaxesValue_OverInvoice" #TaxesPercentage_OverInvoice="ngModel" type="number"
+                            [(ngModel)]="taxesValueOverTransaction" class="form-control"
+                            (cahnge)="onChangeTaxesValueOverTransaction()">
+                    </td>
+                    <td>
+                        <input name="Total" #Total="ngModel" type="text" [(ngModel)]="buyingTransactionTotal" class="form-control"
+                            readonly>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" (click)="onProcessClick()">
+                            Process
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2">
+
+            </div>
+            <div class="col-sm-1">
+
+            </div>
+            <div class="col-sm-1">
+
+            </div>
+            <div class="col-sm-1">
+
+            </div>
+            <div class="col-sm-1">
+
+            </div>
+            <div class="col-sm-3">
+
+            </div>
+
+        </div>
+
+        <div class="row" style="bottom: 0; background-color: olive; color: whitesmoke; height: 20px;">
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>NumberOfItems: </label>
+
+                    <input name="NumOfItems" #NumOfItems="ngModel" type="number" [(ngModel)]="numberOfItems"
+                        class="form-control" readonly>
+                    <!-- <label name="NumberOfItems" #NumberOfItems="ngModel" class="ml-1"
+                        [(ngModel)]="sellingTransactionMaster.NumberOfItems">0</label> -->
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label>NumberOfPieces: </label>
+                    <input name="NumOfPieces" #NumOfPieces="ngModel" type="number"
+                        [(ngModel)]="numberOfPieces" class="form-control" readonly>
+                    <!-- <label name="NumberOfPieces" #NumberOfPieces="ngModel" class="ml-1"
+                        [(ngModel)]="sellingTransactionMaster.NumberOfPieces">0</label> -->
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</form>

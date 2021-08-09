@@ -177,8 +177,6 @@ export class SellingInvoiceComponent implements OnInit {
     this.saleItemsDisplay[index].ItemSellingDiscountValue =
       ((this.saleItemsDisplay[index].ItemSubtotal + this.saleItemsDisplay[index].ItemSellingTaxesValue)
         * this.saleItemsDisplay[index].ItemSellingDiscountPercentage) / 100;
-
-    
   }
 
   updateItemSellingDiscountPercentage(index: number) {

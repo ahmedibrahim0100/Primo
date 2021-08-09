@@ -8,7 +8,7 @@ namespace GaroshaPrimoDataManager.Library.Models
 {
     public class BuyingTransactionItemModel
     {
-        public int BuyingTransactionId { get; set; }
+        //public int BuyingTransactionId { get; set; }
         public int ItemId { get; set; }
         public DateTime ItemExpiryDate { get; set; }
         public decimal BuyingTransactionItemQuantity { get; set; }
@@ -19,6 +19,6 @@ namespace GaroshaPrimoDataManager.Library.Models
         public decimal ItemBuyingTaxesPercentage { get; set; }
         public decimal ItemBuyingTaxesValue { get; set; }
         public decimal ItemTotal { get; set; }
-        public decimal ItemStock { get; set; }
+        //public decimal ItemStock { get; set; }
     }
 }

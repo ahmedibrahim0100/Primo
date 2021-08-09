@@ -7,6 +7,7 @@ Development phase:
 5- Add new item to the database
 6- test update quantities and expiry dates functions on selling and buying for the correct comparisons of expiry dates and
 how dates are expressed in the database and sent from the front-end
+7- Develop functionality for deleting added items in both selling & buying transactions
 
 Deployment phase:
 1- Comment assembly line in SwaggerConfig.cs because there would be no need for Swagger UI & for security. (Tim Corey, video 4)

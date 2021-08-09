@@ -30,8 +30,8 @@ export class ItemsSelectorComponent implements OnInit, OnChanges {
       if(changes.hasOwnProperty(propName)){
         switch (propName){
           case 'searchText':{
-            //this.getItemsByIdentifier(this.searchText)
-            this.testingFunction();
+            this.getItemsByIdentifier(this.searchText)
+            //this.testingFunction();
           }
         }
       }

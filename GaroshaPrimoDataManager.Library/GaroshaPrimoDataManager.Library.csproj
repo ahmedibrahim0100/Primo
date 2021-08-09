@@ -53,6 +53,7 @@
     <Compile Include="DataAccess\SellingTransactionData.cs" />
     <Compile Include="DataAccess\TherapeuticClassesData.cs" />
     <Compile Include="DataAccess\UserData.cs" />
+    <Compile Include="DataAccess\VendorsData.cs" />
     <Compile Include="Models\BankCardPaymentDBModel.cs" />
     <Compile Include="Models\BankCardPaymentModel.cs" />
     <Compile Include="Models\BuyingTransactionItemDBModel.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Models\SellingTransactionTypeModel.cs" />
     <Compile Include="Models\TherapeuticClassDBModel.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\VendorDBModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Internal\DataAccess\SqlDataAccess.cs" />
   </ItemGroup>
